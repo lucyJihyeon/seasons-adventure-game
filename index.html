@@ -4,8 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <script defer src="./assets/js/script.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLylZUYb0UAI4-mRgItl36-bf6IlPMMxI&callback=initMap"></script>
+
+
 </head>
 <body>
-    
+    <h1>Adventure Game Title</h1>
+
+    <!-- player name input -->
+    <div id="name-input" class="nes-field is-inline">
+      <label for="dark_field">What is your name?</label>
+      <input
+        type="text"
+        id="dark_field"
+        class="nes-input is-dark"
+        placeholder="Sora"
+      />
+    </div>
+
+    <!-- location input -->
+    <div id="location-input">
+      <label for="dark_select">Where will your adventure begin?</label>
+      <div class="nes-select is-dark">
+        <select required id="dark_select">
+          <option value="" disabled selected hidden>Select city...</option>
+          <option value="Sacramento">Sacramento, CA</option>
+          <option value="Kuala">Kuala Lumpur, Malaysia</option>
+          <option value="London">London, UK</option>
+          <option value="Reo De Janerio">Rio de Janerio, Brazil</option>
+          <option value="Cairo">Cairo, Egypt</option>
+        </select>
+      </div>
+    </div>
+    <!-- start button -->
+    <button id="start-btn" type="button" class="nes-btn">Start Game</button>
+
+    <div id="map" style="width: 50%; height: 500px;"></div>
+
 </body>
 </html>
