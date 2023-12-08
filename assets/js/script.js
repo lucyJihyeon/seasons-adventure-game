@@ -3,7 +3,7 @@ var weatherApi = "bd198fc2c921dcda5323e5669a78656f";
 var googlemapsUrl = "https://maps.googleapis.com/maps/api/js?key=" + mapsApi + "&callback=initMap"
 var initLat = "51.508742";
 var initLng = "-0.120850";
-var startingbtn = document.getElementById("start-btn");
+var selectbtn = document.getElementById("select-btn");
 
 function getParams(event)    {
     event.preventDefault();
@@ -56,7 +56,7 @@ function initMap(coorLat, coorLon) {
 }
 
 
-startingbtn.addEventListener("click", getParams);
+selectbtn.addEventListener("click", getParams);
 
 
 
