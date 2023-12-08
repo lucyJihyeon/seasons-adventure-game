@@ -7,22 +7,29 @@ var googlemapsUrl =
 var initLat = "51.508742";
 var initLng = "-0.120850";
 var selectbtn = document.getElementById("select-btn");
+var promptEl = document.getElementById("not-selected");
+
 
 function getParams(event) {
   event.preventDefault();
-
+  
   var city = document.getElementById("dark_select").value;
   console.log(city);
+  if(!city) {
+    promptEl.textContent= "Please Select a City to begin!";
+    return;
+  }
   var owUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
     weatherApi;
   searchCity(owUrl);
-  console.log(owUrl);
+  
 }
 
 function searchCity(owUrl) {
+  promptEl.textContent= "";
   fetch(owUrl)
     .then(function (response) {
       if (!response.ok) {
