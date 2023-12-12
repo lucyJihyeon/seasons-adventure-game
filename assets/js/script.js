@@ -9,14 +9,13 @@ var initLng = "-0.120850";
 var selectbtn = document.getElementById("select-btn");
 var promptEl = document.getElementById("not-selected");
 
-
 function getParams(event) {
   event.preventDefault();
-  
+
   var city = document.getElementById("dark_select").value;
   console.log(city);
-  if(!city) {
-    promptEl.textContent= "Please Select a City to begin!";
+  if (!city) {
+    promptEl.textContent = "Please Select a City to begin!";
     return;
   }
   var owUrl =
@@ -26,11 +25,10 @@ function getParams(event) {
     weatherApi +
     "&units=imperial";
   searchCity(owUrl);
-  
 }
 
 function searchCity(owUrl) {
-  promptEl.textContent= "";
+  promptEl.textContent = "";
   fetch(owUrl)
     .then(function (response) {
       if (!response.ok) {
@@ -48,7 +46,6 @@ function searchCity(owUrl) {
         var temp = data.main.temp;
         initMap(coorLat, coorLon);
         getWeather(cityName, weather, temp);
-
       }
     });
 }
@@ -66,11 +63,11 @@ function initMap(coorLat, coorLon) {
   var marker = new google.maps.Marker({
     position: new google.maps.LatLng(initLat, initLng),
     map: map,
-    title: city
+    title: city,
   });
 }
 
-function getWeather(name, weather, temp)  {
+function getWeather(name, weather, temp) {
   var weatherUl = document.getElementById("weather-widget");
   weatherUl.innerHTML = "";
   var cityName = document.createElement("li");
@@ -79,23 +76,47 @@ function getWeather(name, weather, temp)  {
 
   var weatherDsc = document.createElement("li");
   weatherDsc.setAttribute("id", "weather-description");
-  weatherDsc.textContent= (weather);
+  weatherDsc.textContent = weather;
 
   var temperature = document.createElement("li");
   temperature.setAttribute("id", "temperature");
-  temperature.textContent = (temp + " °F");
+  temperature.textContent = temp + " °F";
 
   weatherUl.appendChild(cityName);
-  weatherUl.appendChild(weatherDsc);
   weatherUl.appendChild(temperature);
+  weatherUl.appendChild(weatherDsc);
+
 
   addBackground(weather);
 }
-selectbtn.addEventListener("click", getParams);
 
-function addBackground(weather)  {
+function addBackground(weather) {
   var background = document.getElementById("weather");
-  if(weather.toLowerCase().includes("clouds"))  {
+  if (
+    weather.toLowerCase().includes("clouds") ||
+    weather.toLowerCase().includes("haze") ||
+    weather.toLowerCase().includes("smoke") ||
+    weather.toLowerCase().includes("mist") ||
+    weather.toLowerCase().includes("dust") ||
+    weather.toLowerCase().includes("fog") ||
+    weather.toLowerCase().includes("sand") ||
+    weather.toLowerCase().includes("ash") ||
+    weather.toLowerCase().includes("squall") ||
+    weather.toLowerCase().includes("tornado")
+  ) {
     background.style.backgroundImage = "url('./assets/img/clouds.jpeg')";
+  } else if (weather.toLowerCase().includes("thunderstorm")) {
+    background.style.backgroundImage = "url('./assets/img/thunderstorm.jpeg')";
+  } else if (weather.toLowerCase().includes("clear")) {
+    background.style.backgroundImage = "url('./assets/img/sunny.jpeg')";
+  } else if (weather.toLowerCase().includes("snow")) {
+    background.style.backgroundImage = "url('./assets/img/winter.jpeg')";
+  } else if (
+    weather.toLowerCase().includes("drizzle") ||
+    weather.toLowerCase().includes("rain")
+  ) {
+    background.style.backgroundImage = "url('./assets/img/raining.jpeg')";
   }
 }
+
+selectbtn.addEventListener("click", getParams);
