@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <title>Scores</title>
+</head>
+<body>
+    <h1>Scores</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Weather</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Inserting data dynamically using JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Assuming 'details' is your localStorage variable
+        //var details = JSON.parse(localStorage.getItem('details'));
+
+       var details = [{"name":"Harika", "city":"Frisco", "weather":"60", "score":"50"},
+       {"name":"Lucy", "city":"San Jose", "weather":"60", "score":"90"},
+       {"name":"Jordan", "city":"Sacramento", "weather":"60", "score":"90"}];
+
+        // Reference to the table body
+        var tableBody = document.querySelector('tbody');
+
+        // Loop through details and populate the table
+        details.forEach(function(detail) {
+            var row = tableBody.insertRow();
+            var cellName = row.insertCell(0);
+            var cellCity = row.insertCell(1);
+            var cellWeather = row.insertCell(2);
+            var cellScore = row.insertCell(3);
+
+            cellName.innerHTML = detail.name;
+            cellCity.innerHTML = detail.city;
+            cellWeather.innerHTML = detail.weather;
+            cellScore.innerHTML = detail.score;
+        });
+    </script>
