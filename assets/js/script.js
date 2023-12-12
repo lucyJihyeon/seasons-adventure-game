@@ -23,7 +23,8 @@ function getParams(event) {
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
-    weatherApi;
+    weatherApi +
+    "&units=imperial";
   searchCity(owUrl);
   
 }
@@ -42,8 +43,12 @@ function searchCity(owUrl) {
         console.log(data);
         var coorLat = data.coord.lat;
         var coorLon = data.coord.lon;
-
+        var cityName = data.name;
+        var weather = data.weather[0].main;
+        var temp = data.main.temp;
         initMap(coorLat, coorLon);
+        getWeather(cityName, weather, temp);
+
       }
     });
 }
@@ -65,4 +70,32 @@ function initMap(coorLat, coorLon) {
   });
 }
 
+function getWeather(name, weather, temp)  {
+  var weatherUl = document.getElementById("weather-widget");
+  weatherUl.innerHTML = "";
+  var cityName = document.createElement("li");
+  cityName.setAttribute("id", "city-name");
+  cityName.textContent = name;
+
+  var weatherDsc = document.createElement("li");
+  weatherDsc.setAttribute("id", "weather-description");
+  weatherDsc.textContent= (weather);
+
+  var temperature = document.createElement("li");
+  temperature.setAttribute("id", "temperature");
+  temperature.textContent = (temp + " °F");
+
+  weatherUl.appendChild(cityName);
+  weatherUl.appendChild(weatherDsc);
+  weatherUl.appendChild(temperature);
+
+  addBackground(weather);
+}
 selectbtn.addEventListener("click", getParams);
+
+function addBackground(weather)  {
+  var background = document.getElementById("weather");
+  if(weather.toLowerCase().includes("clouds"))  {
+    background.style.backgroundImage = "url('./assets/img/clouds.jpeg')";
+  }
+}

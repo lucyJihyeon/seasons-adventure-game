@@ -35,3 +35,20 @@ h1 {
     margin: 10px;
 }
 
+#map-container  {
+    display: flex;
+    flex-direction: row;
+}
+
+#weather    {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+}
+
+
+li  {
+    list-style: none;
+}

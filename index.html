@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link
       href="https://unpkg.com/nes.css@latest/css/nes.min.css"
@@ -14,11 +14,13 @@
     />
     <link rel="stylesheet" href="assets\css\style.css" />
     <script defer src="./assets/js/script.js"></script>
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLylZUYb0UAI4-mRgItl36-bf6IlPMMxI&callback=initMap"></script>
-
-
-</head>
-<body>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLylZUYb0UAI4-mRgItl36-bf6IlPMMxI&callback=initMap"
+    ></script>
+   
+  </head>
+  <body>
     <h1>Adventure Game Title</h1>
 
     <!-- player name input -->
@@ -48,14 +50,29 @@
     </div>
     <!-- select button -->
     <div class="button-container">
-        <button id="select-btn" type="button" class="nes-btn">Select the City</button>
+      <button id="select-btn" type="button" class="nes-btn">
+        Select the City
+      </button>
     </div>
     <div class="button-container">
-        <p id="not-selected"></p>
+      <p id="not-selected"></p>
     </div>
-    <div id="map" style="width: 50%; height: 300px;"></div>
+    <div id="map-container">
+      <div id="map" style="width: 50%; height: 300px"></div>
+      <div id="weather" style="width: 50%; height: 300px">
+        <ul id="weather-widget">
+        </ul>
+      </div> 
+    </div>   
+
+
+    </div>
     <div class="button-container">
-        <button id="start-btn" type="button" class="nes-btn">Start the Game</button>
+      <button id="start-btn" type="button" class="nes-btn">
+        Start the Game
+      </button>
     </div>
-</body>
+    
+    
+  </body>
 </html>
