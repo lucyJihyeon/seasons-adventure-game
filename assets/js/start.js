@@ -69,8 +69,12 @@ function startSunny() {
   node.textContent = 
     "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
   nodeOne.insertBefore(node, nodeOne.firstChild);
+  
   option1.textContent = "Walk along the covered road" ;
   option2.textContent = "Brave the exposed road";
+  option1.style.animation = "typing 2s steps(" + option1.textContent.length ;
+  option2.style.animation = "typing 2s steps(" + option2.textContent.length ;
 
 }
+
 
