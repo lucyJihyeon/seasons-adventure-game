@@ -3,6 +3,7 @@ var greeting = document.getElementById("name");
 var weather = document.getElementById("weather");
 var intro = document.getElementById("intro");
 var nodeOne = document.getElementById("node-1");
+var nodeStory = document.getElementById("story");
 var option1 = document.getElementById("option-1");
 var option2 = document.getElementById("option-2");
 var iconContainer = document.getElementById("icon-container");
@@ -68,25 +69,37 @@ function getintro(user) {
 function startRain() {}
 
 function startSunny() {
-  var node = document.createElement("p");
-  node.textContent = 
-    "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
-  nodeOne.insertBefore(node, nodeOne.firstChild);
-  
+  nodeStory.textContent = "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
   option1.textContent = "Walk along the covered road" ;
   option2.textContent = "Brave the exposed road";
   option1.style.animation = "typing 2s steps(" + option1.textContent.length ;
   option2.style.animation = "typing 2s steps(" + option2.textContent.length ;
 
-  getlives();
+  getlives(heartNum);
+
+  option1.addEventListener("click", nextQuestionWrong);
 }
 
-function getlives() {
+function getlives(heartNum) {
+  iconContainer.innerHTML = "";
   for (var i = 0; i < heartNum; i ++)  {
     var heart = document.createElement("i");
     heart.classList.add("nes-icon", "is-medium", "heart");
     iconContainer.appendChild(heart);
   }
+}
+
+function nextQuestionWrong(event)  {
+  event.preventDefault();
+  heartNum -= 1;
+  getlives(heartNum);
+  nodeStory.textContent = "Oh No! You find yourself in the Enchanted Forest, a place of magic and mystery. While exploring, a massive dragon appears. Its scales glow with an eerie darkness, and it speaks directly to you."
+  +
+  "Adventurer, you've entered my domain. Brace yourself!";
+  option1.textContent = "Stand your ground and prepare to fight the dragon!" ;
+  option2.textContent = "Try to calm the dragon down with soothing words.";
+
+
 }
 
 
