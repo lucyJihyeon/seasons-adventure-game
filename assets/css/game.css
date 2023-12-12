@@ -5,10 +5,18 @@
 body {
     background-color: #212529;
     color: white;
+    padding: 10%;
 }
 
 #intro {
     display: flex;
     flex-direction: column;
-    padding: 10%;
 }
+
+#button-container   {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    justify-content: space-evenly;
+}
+
