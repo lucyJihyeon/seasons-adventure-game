@@ -1,11 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <script defer src="./assets/js/script.js"></script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLylZUYb0UAI4-mRgItl36-bf6IlPMMxI&callback=initMap"
+    ></script>
+   
+  </head>
+  <body>
+    <h1>Adventure Game Title</h1>
+
+    <!-- player name input -->
+    <div id="name-input" class="nes-field is-inline">
+      <label for="dark_field">What is your name?</label>
+      <input
+        type="text"
+        id="dark_field"
+        class="nes-input is-dark"
+        placeholder="Sora"
+      />
+    </div>
+
+    <!-- location input -->
+    <div id="location-input">
+      <label for="dark_select">Where will your adventure begin?</label>
+      <div class="nes-select is-dark">
+        <select required id="dark_select">
+          <option value="" disabled selected hidden>Select city...</option>
+          <option value="Sacramento">Sacramento, CA</option>
+          <option value="Kuala Lumpur">Kuala Lumpur, Malaysia</option>
+          <option value="London">London, UK</option>
+          <option value="Rio De Janeiro">Rio De Janeiro, Brazil</option>
+          <option value="Cairo">Cairo, Egypt</option>
+        </select>
+      </div>
+    </div>
+    <!-- select button -->
+    <div class="button-container">
+      <button id="select-btn" type="button" class="nes-btn">
+        Select the City
+      </button>
+    </div>
+    <div class="button-container">
+      <p id="not-selected"></p>
+    </div>
+    <div id="map-container">
+      <div id="map" style="width: 50%; height: 300px"></div>
+      <div id="weather" style="width: 50%; height: 300px">
+        <ul id="weather-widget">
+        </ul>
+      </div> 
+    </div>   
+
+
+    </div>
+    <div class="button-container">
+      <button id="start-btn" type="button" class="nes-btn">
+        Start the Game
+      </button>
+    </div>
     
-</body>
+    
+  </body>
 </html>
