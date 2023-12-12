@@ -5,7 +5,10 @@ var intro = document.getElementById("intro");
 var nodeOne = document.getElementById("node-1");
 var option1 = document.getElementById("option-1");
 var option2 = document.getElementById("option-2");
+var iconContainer = document.getElementById("icon-container");
+var heartNum = 5;
 getname();
+
 function getname() {
   var searchParams = document.location.search.split("q=");
   var user = searchParams[1];
@@ -75,6 +78,16 @@ function startSunny() {
   option1.style.animation = "typing 2s steps(" + option1.textContent.length ;
   option2.style.animation = "typing 2s steps(" + option2.textContent.length ;
 
+  getlives();
 }
+
+function getlives() {
+  for (var i = 0; i < heartNum; i ++)  {
+    var heart = document.createElement("i");
+    heart.classList.add("nes-icon", "is-medium", "heart");
+    iconContainer.appendChild(heart);
+  }
+}
+
 
 
