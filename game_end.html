@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <title>Game Result</title>
+</head>
+<body>
+
+    <h1>Game Result</h1>
+    <p id="display-content"></p>
+
+    <!-- Check if the game is successful or failed -->
+    <script>
+        // Assuming you have a variable 'isSuccess' indicating success or failure
+        var isSuccess = true; // Change to false for failure
+        var last_played= {"name":"Jordan", "city":"Sacramento", "weather":"60", "score":"90"}
+
+        if (isSuccess) {
+            var displayContent = document.getElementById("display-content");
+            displayContent.textContent = "Congratulations  "+ last_played["name"] +
+                                         "Youve survived your adventure in " + last_played["city"];
+
+            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
+            document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
+        } else {
+            document.write('<button onclick="showFailedPoint()">Show Failed Point</button>');
+            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
+            document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
+        }
+
+        // Functions to handle button clicks
+        function redirectToStart() {
+            window.location.href = 'index.html';
+        }
+
+        function redirectToScores() {
+            window.location.href = 'scores.html';
+        }
+
+        function showFailedPoint() {
+            // Add code to display the failed point information
+            alert('Displaying failed point...');
+        }
+    </script>
+
+</body>
+</html>
