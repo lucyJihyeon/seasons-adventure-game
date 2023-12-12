@@ -101,7 +101,8 @@ function getWeather(name, weatherDsc, temp, username) {
 }
 
 function savetoLocalStorage(userinfo) {
-  localStorage.setItem("userinfo", JSON.stringify(userinfo));
+  var userName = document.getElementById("dark_field").value;
+  localStorage.setItem(userName, JSON.stringify(userinfo));
 }
 
 function addBackground(weather) {
@@ -136,7 +137,8 @@ function addBackground(weather) {
 
 function startGame(event) {
   event.preventDefault();
-  var queryString = "./start.html?q=" + 
+  var userName = document.getElementById("dark_field").value;
+  var queryString = "./start.html?q=" +  userName;
   location.assign(queryString);
 }
 
