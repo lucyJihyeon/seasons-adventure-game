@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 2;
+}
+body {
+  background-color: #212529;
+  color: white;
+  padding: 10%;
+}
+
+#intro {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#button-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10%;
+  justify-content: space-around;
+}
+
+#option-1, #option-2 {
+    width: 100%;
+    white-space: wrap;
+    overflow: hidden;
+    margin: 2%;
+}
+
+@keyframes typing {
+    from { width: 0%; }
+    to { width: 55%; }
+}
+  
+#icon-container {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 50px;
+}
+
+i {
+    margin-left: 15px;
+}

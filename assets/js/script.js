@@ -8,14 +8,17 @@ var initLat = "51.508742";
 var initLng = "-0.120850";
 var selectbtn = document.getElementById("select-btn");
 var promptEl = document.getElementById("not-selected");
+var startbtn = document.getElementById("start-btn");
+var initscore = 0;
 
 function getParams(event) {
   event.preventDefault();
 
   var city = document.getElementById("dark_select").value;
+  var userName = document.getElementById("dark_field").value;
   console.log(city);
-  if (!city) {
-    promptEl.textContent = "Please Select a City to begin!";
+  if ((!city) || (!userName)) {
+    promptEl.textContent = "Please Enter Your name and Select a city to begin!";
     return;
   }
   var owUrl =
@@ -44,8 +47,9 @@ function searchCity(owUrl) {
         var cityName = data.name;
         var weather = data.weather[0].main;
         var temp = data.main.temp;
+        var userName = document.getElementById("dark_field").value;
         initMap(coorLat, coorLon);
-        getWeather(cityName, weather, temp);
+        getWeather(cityName, weather, temp, userName);
       }
     });
 }
@@ -67,16 +71,16 @@ function initMap(coorLat, coorLon) {
   });
 }
 
-function getWeather(name, weather, temp) {
+function getWeather(name, weatherDsc, temp, username) {
   var weatherUl = document.getElementById("weather-widget");
   weatherUl.innerHTML = "";
   var cityName = document.createElement("li");
   cityName.setAttribute("id", "city-name");
   cityName.textContent = name;
 
-  var weatherDsc = document.createElement("li");
-  weatherDsc.setAttribute("id", "weather-description");
-  weatherDsc.textContent = weather;
+  var weatherDscr = document.createElement("li");
+  weatherDscr.setAttribute("id", "weather-description");
+  weatherDscr.textContent = weatherDsc;
 
   var temperature = document.createElement("li");
   temperature.setAttribute("id", "temperature");
@@ -84,10 +88,21 @@ function getWeather(name, weather, temp) {
 
   weatherUl.appendChild(cityName);
   weatherUl.appendChild(temperature);
-  weatherUl.appendChild(weatherDsc);
+  weatherUl.appendChild(weatherDscr);
+  
+  var newUser = {
+    name: username,
+    city: name,
+    score: initscore,
+    weather: weatherDsc,
+  }
+  savetoLocalStorage(newUser);
+  addBackground(weatherDsc);
+}
 
-
-  addBackground(weather);
+function savetoLocalStorage(userinfo) {
+  var userName = document.getElementById("dark_field").value;
+  localStorage.setItem(userName, JSON.stringify(userinfo));
 }
 
 function addBackground(weather) {
@@ -119,4 +134,16 @@ function addBackground(weather) {
   }
 }
 
+
+function startGame(event) {
+  event.preventDefault();
+  var userName = document.getElementById("dark_field").value;
+  var queryString = "./start.html?q=" +  userName;
+  location.assign(queryString);
+}
+
+
+
 selectbtn.addEventListener("click", getParams);
+startbtn.addEventListener("click", startGame);
+
