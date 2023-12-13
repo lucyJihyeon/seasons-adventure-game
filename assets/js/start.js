@@ -71,7 +71,6 @@ function getintro(user) {
 
   weather.textContent = "It is currently " + currentW + " In " + userCity;
 }
-
 function startOvercast(userCity)  {
 
   nodeStory.textContent = "The sky hangs heavy with thick, gray clouds, casting a dim light over your surroundings. You find yourself in the midst of an overcast day, the air pregnant with the promise of rain. ";
@@ -80,16 +79,20 @@ function startOvercast(userCity)  {
   option2.textContent ="Go to a location known for sudden rain showers.";
   option1.style.animation =
   "typing 2s steps(" + option1.textContent.length + ")";
-option2.style.animation =
+  option2.style.animation =
   "typing 2s steps(" + option2.textContent.length + ")";
 
-getlives(heartNum);
-
-option1.addEventListener("click", ocLose);
-option2.addEventListener("click", function() {
+  getlives(heartNum);
+  option1.addEventListener("click", ocLose);
+  option2.addEventListener("click", function() {
   startRain(userCity);
-});
+  option1.removeEventListener("click", ocLose);
+  option2.removeEventListener("click", function() {
+    startRain(userCity);
+    });
+  });
 }
+
 function ocLose(event)  {
   event.preventDefault();
   intro.innerHTML = "";
@@ -336,7 +339,7 @@ function rainynextQuestion3A(event)  {
   }, 10);
 
   option1.addEventListener("click",rainylose);
-  option2.addEventListener("click",success);
+  option2.addEventListener("click",rainynextQuestion4A);
 
 }
 
@@ -369,7 +372,34 @@ function rainynextQuestion3B(event) {
   option1.addEventListener("click",rainylose);
   option2.addEventListener("click",rainylose);
 }
+function rainynextQuestion4A(event) {
+  event.preventDefault();
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", rainylose);
+  option2.removeEventListener("click", rainynextQuestion4A);
 
+  nodeStory.textContent = 
+  "With unwavering determination, you have chosen to face the mighty dragon that looms before you. The air crackles with tension as you feel a surge of magical energy within, ready to be unleashed in the impending battle."
+
+  nodeStatus.textContent = 
+  "The dragon fixes its gaze upon you, and a low growl reverberates through the chamber. You sense a powerful presence emanating from the creature."
+
+  option1.textContent = "Confront the dragon with your Aetherial Harmony magic."
+
+  option2.textContent = "Unleash the fury of fire magic against the dragon."
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option1.addEventListener("click",success);
+  option2.addEventListener("click",rainylose);
+
+}
 function success(event)  {
   event.preventDefault();
   var successUrl = ('./game_end.html');
@@ -444,18 +474,6 @@ function viewScore() {
   var scoreUrl = "./scores.html";
   location.assign(scoreUrl);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 function startSunny() {
