@@ -51,3 +51,9 @@ TomTom
 
 ## CSS Framework
 NES.css
+
+## Mockup image/screenshot
+
+## Access the game
+
+Open your browser and go to <link> to play the game
