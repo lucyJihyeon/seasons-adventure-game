@@ -15,14 +15,14 @@ Welcome to our Weather Based Adventure Game! This project combines real-time wea
 ## User Story
 
 ```
-As a player, I want to:
-* Play an adventure game with real-time weather data:
-    * Select a city.
-    * View a weather widget displaying the current weather data for the chosen city.
-* Restart the game if I fail:
-    * Have the option to restart the game and try again.
-* See a weather widget and Google Maps pin:
-    * Be immersed in the game by seeing a weather widget and a Google Maps pin for the chosen city.
+AS A player, I WANT to:
+Play an adventure game with real-time weather data:
+     Select a city.
+     View a weather widget displaying the current weather data for the chosen city.
+Restart the game if I fail:
+     Have the option to restart the game and try again.
+See a weather widget and Google Maps pin:
+     Be immersed in the game by seeing a weather widget and a Google Maps pin for the chosen city.
 ```
 
 ## Acceptance Criteria
