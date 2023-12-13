@@ -92,12 +92,12 @@ option2.addEventListener("click", function() {
 }
 function ocLose(event)  {
   event.preventDefault();
+  intro.innerHTML = "";
   heartNum = 0;
   getlives(heartNum);
   option1.style.animation = "";
   option2.style.animation = "";
   option1.removeEventListener("click", ocLose);
-  option2.removeEventListener("click", startRain(userCity));
 
   nodeStory.textContent =
   "As you linger in the overcast atmosphere, a sudden and unforeseen weather disaster strikes. The calmness of the clouds quickly transforms into chaos. Violent winds whip through the area, and torrential rain begins to pour.";
