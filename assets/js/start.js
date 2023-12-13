@@ -32,9 +32,9 @@ function getintro(user) {
 
   if (daynight == "AM") {
     greeting.textContent = "Good Morning, " + user;
-  } else if (daynight == "PM" && time < 6) {
+  } else if ((daynight == "PM" && time < 6) || (daynight == "PM" && time === 12)) {
     greeting.textContent = "Good Afternoon, " + user;
-  } else if (daynight == "PM" && time > 6) {
+  } else if ((daynight == "PM" && time > 6) || (daynight == "AM" && time === 12)){
     greeting.textContent = "Good Night, " + user;
   }
 
