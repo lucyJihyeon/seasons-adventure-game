@@ -18,25 +18,26 @@ body {
 #button-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
+  margin-top: 10%;
   justify-content: space-around;
 }
 
-a {
+#option-1, #option-2 {
     width: 100%;
-    white-space: nowrap;
+    white-space: wrap;
     overflow: hidden;
+    margin: 2%;
 }
 
 @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
+    from { width: 0%; }
+    to { width: 55%; }
 }
   
 #icon-container {
     display: flex;
     width: fit-content;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 i {

@@ -7,7 +7,7 @@ var nodeStory = document.getElementById("story");
 var option1 = document.getElementById("option-1");
 var option2 = document.getElementById("option-2");
 var iconContainer = document.getElementById("icon-container");
-var heartNum = 5;
+var heartNum = 3;
 getname();
 
 function getname() {
@@ -72,12 +72,14 @@ function startSunny() {
   nodeStory.textContent = "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
   option1.textContent = "Walk along the covered road" ;
   option2.textContent = "Brave the exposed road";
-  option1.style.animation = "typing 2s steps(" + option1.textContent.length ;
-  option2.style.animation = "typing 2s steps(" + option2.textContent.length ;
+  
+  option1.style.animation = "typing 2s steps(" + option1.textContent.length + ")";
+  option2.style.animation = "typing 2s steps(" + option2.textContent.length + ")";
 
   getlives(heartNum);
 
   option1.addEventListener("click", nextQuestionWrong);
+  option2.addEventListener("click", nextQuestionCorrect);
 }
 
 function getlives(heartNum) {
@@ -91,16 +93,36 @@ function getlives(heartNum) {
 
 function nextQuestionWrong(event)  {
   event.preventDefault();
+  intro.innerHTML = "";
   heartNum -= 1;
   getlives(heartNum);
+  
+  option1.style.animation = "";
+  option2.style.animation = "";
+
   nodeStory.textContent = "Oh No! You find yourself in the Enchanted Forest, a place of magic and mystery. While exploring, a massive dragon appears. Its scales glow with an eerie darkness, and it speaks directly to you."
   +
   "Adventurer, you've entered my domain. Brace yourself!";
   option1.textContent = "Stand your ground and prepare to fight the dragon!" ;
   option2.textContent = "Try to calm the dragon down with soothing words.";
+ 
+  setTimeout(function () {
+    option1.style.animation = "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation = "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  
+  option1.removeEventListener("click",nextQuestionWrong)
+  option2.addEventListener("click", nextQuestionWrong2)
+}
+
+function nextQuestionWrong2(event)  {
+  event.preventDefault();
+  heartNum -= 1;
+  getlives(heartNum);
+
+
 
 
 }
-
 
 
