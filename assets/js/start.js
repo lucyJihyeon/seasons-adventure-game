@@ -50,9 +50,8 @@ function getintro(user) {
     currentW.toLowerCase().includes("squall") ||
     currentW.toLowerCase().includes("tornado")
   ) {
-    //change it to something else?
     currentW = "overcast";
-    startRain(userCity);
+    startOvercast(userCity);
   } else if (currentW.toLowerCase().includes("thunderstorm")) {
     currentW = "raining";
     startRain(userCity);
@@ -73,7 +72,56 @@ function getintro(user) {
   weather.textContent = "It is currently " + currentW + " In " + userCity;
 }
 
+function startOvercast(userCity)  {
+
+  nodeStory.textContent = "The sky hangs heavy with thick, gray clouds, casting a dim light over your surroundings. You find yourself in the midst of an overcast day, the air pregnant with the promise of rain. ";
+  nodeStatus.textContent ="Caught between the uncertainty of impending rain and a subtle tension in the cloudy atmosphere, you must make a decision. What will you do? ";
+  option1.textContent = "Stay in the current area and embrace the overcast ambiance.";
+  option2.textContent ="Go to a location known for sudden rain showers.";
+  option1.style.animation =
+  "typing 2s steps(" + option1.textContent.length + ")";
+option2.style.animation =
+  "typing 2s steps(" + option2.textContent.length + ")";
+
+getlives(heartNum);
+
+option1.addEventListener("click", ocLose);
+option2.addEventListener("click", function() {
+  startRain(userCity);
+});
+}
+function ocLose(event)  {
+  event.preventDefault();
+  heartNum = 0;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", ocLose);
+  option2.removeEventListener("click", startRain(userCity));
+
+  nodeStory.textContent =
+  "As you linger in the overcast atmosphere, a sudden and unforeseen weather disaster strikes. The calmness of the clouds quickly transforms into chaos. Violent winds whip through the area, and torrential rain begins to pour.";
+
+  nodeStatus.textContent =
+  "The sudden weather disaster proves too much to handle. Overwhelmed by the forces of nature, your journey comes to an abrupt and unfortunate end. Game Over.";
+  option1.textContent = "Restart";
+  option2.textContent = "View the Scores";
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option1.addEventListener("click", restart);
+  option2.addEventListener("click", viewScore);
+}
+
 function startRain(userCity) {
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
   nodeStory.textContent =
     " You stand at a rain-soaked intersection in " +
     userCity +
@@ -86,13 +134,16 @@ function startRain(userCity) {
     "Approach the mysterious figure and ask about the adventure";
   option2.textContent = "Explore the city streets on your own";
 
-  option1.style.animation =
-    "typing 2s steps(" + option1.textContent.length + ")";
-  option2.style.animation =
-    "typing 2s steps(" + option2.textContent.length + ")";
-
-  getlives(heartNum);
-
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  
+  option1.removeEventListener("click",ocLose);
+  option2.removeEventListener("click",() => startRain(userCity) );
+  
   option1.addEventListener("click", rainynextQuestion1A);
   option2.addEventListener("click", rainynextQuestionWrong);
 }
@@ -166,7 +217,6 @@ function rainynextQuestionWrong2A(event) {
 }
 function rainynextQuestionWrong2bFinal(event) {
   event.preventDefault();
-  intro.innerHTML = "";
   heartNum = 0;
   getlives(heartNum);
   option1.style.animation = "";
@@ -408,7 +458,6 @@ function viewScore() {
 
 
 /*
-Please ignore this part; 
 function startSunny() {
   nodeStory.textContent =
     "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
