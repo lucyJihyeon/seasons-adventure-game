@@ -134,20 +134,24 @@ function ocLose(event)  {
   option1.textContent = "";
   option2.textContent = "View the Scores";
 
+  //add style to the options 
   setTimeout(function () {
+    //clear out the option1
     option1.style =
       "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
-
+  //when option2 is clicked, call viewScore
   option2.addEventListener("click", viewScore);
 }
 
+//Function to start the Rainy scenario 
 function startRain(userCity) {
   getlives(heartNum);
   option1.style.animation = "";
   option2.style.animation = "";
+  //updating the game node 
   nodeStory.textContent =
     " You stand at a rain-soaked intersection in " +
     userCity +
@@ -167,13 +171,10 @@ function startRain(userCity) {
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
   
-  option1.removeEventListener("click",ocLose);
-  option2.removeEventListener("click",() => startRain(userCity) );
-  
   option1.addEventListener("click", rainynextQuestion1A);
   option2.addEventListener("click", rainynextQuestionWrong);
 }
-
+//Update the node
 function rainynextQuestionWrong(event) {
   event.preventDefault();
   intro.innerHTML = "";
@@ -210,7 +211,7 @@ function rainynextQuestionWrong(event) {
   option1.addEventListener("click", rainynextQuestionWrong2A);
   option2.addEventListener("click", rainynextQuestion2BFianl);
 }
-
+//Update the node
 function rainynextQuestionWrong2A(event) {
   event.preventDefault();
   intro.innerHTML = "";
@@ -243,6 +244,7 @@ function rainynextQuestionWrong2A(event) {
   option1.addEventListener("click", rainynextQuestionWrong2bFinal);
   option2.addEventListener("click", rainynextQuestion2BFianl);
 }
+//Update the node
 function rainynextQuestionWrong2bFinal(event) {
   event.preventDefault();
   heartNum = 0;
@@ -272,7 +274,7 @@ function rainynextQuestionWrong2bFinal(event) {
 
   option2.addEventListener("click", viewScore);
 }
-
+//Update the node
 function rainynextQuestion1A(event) {
   event.preventDefault();
   intro.innerHTML = "";
@@ -305,7 +307,7 @@ function rainynextQuestion1A(event) {
   option1.addEventListener("click", rainynextQuestion2A);
   option2.addEventListener("click", rainynextQuestionWrong);
 }
-
+//Update the node
 function rainynextQuestion2A(event) {
   event.preventDefault();
   option1.style.animation = "";
@@ -336,7 +338,7 @@ function rainynextQuestion2A(event) {
   option1.addEventListener("click", rainynextQuestion3A);
   option2.addEventListener("click", rainynextQuestion3B);
 }
-
+//Update the node
 function rainynextQuestion3A(event)  {
   event.preventDefault();
   userScore += 10;
@@ -369,7 +371,7 @@ function rainynextQuestion3A(event)  {
   option2.addEventListener("click",rainynextQuestion4A);
 
 }
-
+//Update the node
 function rainynextQuestion3B(event) {
   event.preventDefault();
   userScore += 5;
@@ -400,6 +402,7 @@ function rainynextQuestion3B(event) {
   option1.addEventListener("click",rainylose);
   option2.addEventListener("click",rainylose);
 }
+//Update the node
 function rainynextQuestion4A(event) {
   event.preventDefault();
   userScore += 15;
@@ -429,13 +432,16 @@ function rainynextQuestion4A(event) {
   option2.addEventListener("click",rainylose);
 
 }
+//Function to handle the user's success 
 function success(event)  {
   event.preventDefault();
   userScore += 20;
+  //redirect the user to game_end html with their information as parameters
   var successUrl = ('./game_end.html?q=' + user + "&score=" + userScore);
   location.assign(successUrl);
 }
 
+//Functino to handle the user's loss in the rainy scenario
 function rainylose(event) {
   event.preventDefault();
   userScore += 5;
@@ -445,11 +451,12 @@ function rainylose(event) {
   option2.style.animation = "";
   heartNum = 0;
   getlives(heartNum);
+  //there are two cases option2 calls rainylose and success from the previous branch
   option1.removeEventListener("click", rainylose);
   option2.removeEventListener("click", rainylose);
   option2.removeEventListener("click",success);
   nodeStory.textContent = "As you take a step forward, the dragon inhales deeply, and with a powerful exhale, it unleashes a torrent of fire from its mouth. The searing flames engulf you and everything around you."
-  nodeStatus.textContent = "Your journey comes to a tragic end," + user + " You failed to save "+ userCity;
+  nodeStatus.textContent = "Your journey comes to a tragic end, " + user + " You failed to save "+ userCity;
 
   option1.textContent = "";
   option2.textContent = "View the Scores";
@@ -464,7 +471,7 @@ function rainylose(event) {
 
 
 }
-
+//Update the game node
 function rainynextQuestion2BFianl(event) {
   event.preventDefault();
   heartNum = 0;
@@ -493,7 +500,7 @@ function rainynextQuestion2BFianl(event) {
 
   option2.addEventListener("click", viewScore);
 }
-
+// Function to redirect the user to the scores.html with their information as parameters
 function viewScore() {
   var scoreUrl = "./scores.html?q=" + user + "&score=" + userScore;
   location.assign(scoreUrl);
