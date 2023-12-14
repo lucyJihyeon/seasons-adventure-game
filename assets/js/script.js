@@ -96,6 +96,9 @@ function getWeather(name, weatherDsc, temp, username) {
     score: initscore,
     weather: weatherDsc,
   }
+  var userInformations = JSON.parse(localStorage.getItem("userInfos")) || [];
+  userInformations.push(newUser);
+  localStorage.setItem("userInfos", JSON.stringify(userInformations));
   savetoLocalStorage(newUser);
   addBackground(weatherDsc);
 }

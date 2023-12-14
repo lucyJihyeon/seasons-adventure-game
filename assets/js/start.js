@@ -13,6 +13,7 @@ var user = searchParams[1];
 var heartNum = 3;
 
 getintro(user);
+
 function getlives(heartNum) {
   iconContainer.innerHTML = "";
   for (var i = 0; i < heartNum; i++) {
@@ -402,7 +403,7 @@ function rainynextQuestion4A(event) {
 }
 function success(event)  {
   event.preventDefault();
-  var successUrl = ('./game_end.html');
+  var successUrl = ('./game_end.html?q=' + user);
   location.assign(successUrl);
 }
 
@@ -471,7 +472,7 @@ function restart() {
 }
 
 function viewScore() {
-  var scoreUrl = "./scores.html";
+  var scoreUrl = "./scores.html?q=" + user;
   location.assign(scoreUrl);
 }
 
