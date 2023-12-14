@@ -98,6 +98,7 @@ function ocLose(event)  {
   event.preventDefault();
   intro.innerHTML = "";
   heartNum = 0;
+  userScore -= 5;
   getlives(heartNum);
   option1.style.animation = "";
   option2.style.animation = "";

@@ -13,11 +13,10 @@ var initscore = 0;
 
 function getParams(event) {
   event.preventDefault();
-
   var city = document.getElementById("dark_select").value;
   var userName = document.getElementById("dark_field").value;
   console.log(city);
-  if (!city || !userName) {
+  if ((!city) || (!userName)) {
     promptEl.textContent = "Please Enter Your name and Select a city to begin!";
     return;
   }
@@ -71,7 +70,7 @@ function initMap(coorLat, coorLon) {
   });
 }
 
-function getWeather(name, weatherDsc, temp, username) {
+function getWeather(name, weatherDsc, temp) {
   var weatherUl = document.getElementById("weather-widget");
   weatherUl.innerHTML = "";
   var cityName = document.createElement("li");
@@ -89,7 +88,7 @@ function getWeather(name, weatherDsc, temp, username) {
   weatherUl.appendChild(cityName);
   weatherUl.appendChild(temperature);
   weatherUl.appendChild(weatherDscr);
-
+  
   addBackground(weatherDsc);
 }
 
@@ -127,9 +126,19 @@ function addBackground(weather) {
   }
 }
 
+
 function startGame(event) {
   event.preventDefault();
   var userName = document.getElementById("dark_field").value;
+  var city = document.getElementById("dark_select").value;
+
+  var owUrl =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=" +
+    weatherApi +
+    "&units=imperial";
+
   fetch(owUrl)
     .then(function (response) {
       if (!response.ok) {
@@ -146,19 +155,21 @@ function startGame(event) {
           name: userName,
           city: cityName,
           score: initscore,
-          weather: weather,
-        };
+          weather: weather
+        }
       }
 
-      var userInformations =
-        JSON.parse(localStorage.getItem("userInfos")) || [];
-      userInformations.push(newUser);
-      localStorage.setItem("userInfos", JSON.stringify(userInformations));
-      savetoLocalStorage(newUser);
-      var queryString = "./start.html?q=" + userName;
-      location.assign(queryString);
-    });
+  var userInformations = JSON.parse(localStorage.getItem("userInfos")) || [];
+  userInformations.push(newUser);
+  localStorage.setItem("userInfos", JSON.stringify(userInformations));
+  savetoLocalStorage(newUser);
+  var queryString = "./start.html?q=" +  userName;
+  location.assign(queryString);
+})
 }
+
+
 
 selectbtn.addEventListener("click", getParams);
 startbtn.addEventListener("click", startGame);
+
