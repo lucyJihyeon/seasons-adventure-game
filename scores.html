@@ -9,6 +9,9 @@
 </head>
 <body>
     <h1>Scores</h1>
+    <button id="start-btn" type="button" class="nes-btn">
+        Go Back
+      </button>
     <table>
         <thead>
             <tr>
@@ -28,6 +31,7 @@
         var searchUser = document.location.search.split("q=");
         var userSplit = searchUser[1].split("&");
         var user = userSplit[0];
+        var goBackBtn = document.getElementById("start-btn");
         console.log(userSplit);
         console.log(user);
         console.log(searchUser);
@@ -64,7 +68,10 @@
             cellCity.innerHTML = detail.city;
             cellWeather.innerHTML = detail.weather;
             cellScore.innerHTML = detail.score;
-            
         });
-        
+        function goBack() {
+            var startingUrl = "./index.html";
+            location.assign(startingUrl);
+        }
+        goBackBtn.addEventListener("click", goBack);
     </script>

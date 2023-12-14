@@ -15,7 +15,9 @@ var userScore = 0;
 
 getintro(user);
 
+//Function to display the user's lives(hearts)
 function getlives(heartNum) {
+  //clear out the existing heart icons
   iconContainer.innerHTML = "";
   for (var i = 0; i < heartNum; i++) {
     var heart = document.createElement("i");
@@ -24,14 +26,18 @@ function getlives(heartNum) {
   }
 }
 
+//Function to initialize the game and display the user's information
 function getintro(user) {
+  //Get the current time of day and time 
   var daynight = dayjs().format("A");
   var morning = dayjs().format("h");
   var time = parseInt(morning);
+  //Get the user information from the localStorage
   var userinfo = JSON.parse(localStorage.getItem(user));
   var currentW = userinfo.weather;
   var userCity = userinfo.city;
 
+  //Display a personalized greeting based on the time 
   if (daynight == "AM") {
     greeting.textContent = "Good Morning, " + user;
   } else if ((daynight == "PM" && time < 6) || (daynight == "PM" && time === 12)) {
@@ -40,6 +46,7 @@ function getintro(user) {
     greeting.textContent = "Good Night, " + user;
   }
 
+  //Get the current weather condition to display in the greeting section and the game scenarios to initiate the corresponding function
   if (
     currentW.toLowerCase().includes("clouds") ||
     currentW.toLowerCase().includes("haze") ||
@@ -70,38 +77,53 @@ function getintro(user) {
     currentW = "raining";
     startRain(userCity);
   }
+  //Display the weather information to the user
   weather.textContent = "It is currently " + currentW + " In " + userCity;
 }
-function startOvercast(userCity)  {
 
+//Function to start the overcast scenario
+function startOvercast(userCity)  {
+  //Set up the game scenario for the overcast weather
   nodeStory.textContent = "The sky hangs heavy with thick, gray clouds, casting a dim light over your surroundings. You find yourself in the midst of an overcast day, the air pregnant with the promise of rain. ";
   nodeStatus.textContent ="Caught between the uncertainty of impending rain and a subtle tension in the cloudy atmosphere, you must make a decision. What will you do? ";
   option1.textContent = "Stay in the current area and embrace the overcast ambiance.";
   option2.textContent ="Go to a location known for sudden rain showers.";
+  //Add typying animation to the option buttons 
   option1.style.animation =
   "typing 2s steps(" + option1.textContent.length + ")";
   option2.style.animation =
   "typing 2s steps(" + option2.textContent.length + ")";
 
+  //Display the current lives
   getlives(heartNum);
+
+  //When option1 is clicked, call ocLose function 
   option1.addEventListener("click", ocLose);
+  //When option2 is clicked, call startRain function 
   option2.addEventListener("click", function() {
   startRain(userCity);
+
+  // Remove event listeners right after call the startRain function to prevent duplicating event listener 
   option1.removeEventListener("click", ocLose);
-  option2.removeEventListener("click", function() {
-    startRain(userCity);
-    });
+  option2.removeEventListener("click", arguments.callee);
   });
 }
 
+//Function to handle the user's loss in the overcast scenario
 function ocLose(event)  {
   event.preventDefault();
+  //empty the intro greeting
   intro.innerHTML = "";
+  //empty the lives
   heartNum = 0;
+  //lose 5 points 
   userScore -= 5;
+  //display the lives
   getlives(heartNum);
+  //remove the previous animation
   option1.style.animation = "";
   option2.style.animation = "";
+  //remove the previous event 
   option1.removeEventListener("click", ocLose);
 
   nodeStory.textContent =
@@ -109,17 +131,16 @@ function ocLose(event)  {
 
   nodeStatus.textContent =
   "The sudden weather disaster proves too much to handle. Overwhelmed by the forces of nature, your journey comes to an abrupt and unfortunate end. Game Over.";
-  option1.textContent = "Restart";
+  option1.textContent = "";
   option2.textContent = "View the Scores";
 
   setTimeout(function () {
-    option1.style.animation =
-      "typing 2s steps(" + option1.textContent.length + ")";
+    option1.style =
+      "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click", restart);
   option2.addEventListener("click", viewScore);
 }
 
@@ -240,17 +261,15 @@ function rainynextQuestionWrong2bFinal(event) {
     user +
     "!\"\nThe mysterious figure's words echo in your mind as regret fills your heart. The poison takes its toll, and you feel an unbearable pain surging through your body. Your vision blurs, and you close your eyes slowly in pain.";
 
-  option1.textContent = "Restart";
+  option1.textContent = "";
   option2.textContent = "View the Scores";
 
   setTimeout(function () {
-    option1.style.animation =
-      "typing 2s steps(" + option1.textContent.length + ")";
+    option1.style = "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click", restart);
   option2.addEventListener("click", viewScore);
 }
 
@@ -432,17 +451,15 @@ function rainylose(event) {
   nodeStory.textContent = "As you take a step forward, the dragon inhales deeply, and with a powerful exhale, it unleashes a torrent of fire from its mouth. The searing flames engulf you and everything around you."
   nodeStatus.textContent = "Your journey comes to a tragic end," + user + " You failed to save "+ userCity;
 
-  option1.textContent = "Restart";
+  option1.textContent = "";
   option2.textContent = "View the Scores";
 
   setTimeout(function () {
-    option1.style.animation =
-      "typing 2s steps(" + option1.textContent.length + ")";
+    option1.style = "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click", restart);
   option2.addEventListener("click", viewScore);
 
 
@@ -464,23 +481,17 @@ function rainynextQuestion2BFianl(event) {
 
   nodeStatus.textContent =
     "As a coffee addict, you can't continue your journey without some coffee to fuel your adventures.";
-  option1.textContent = "Restart";
+  option1.textContent = "";
   option2.textContent = "View the Scores";
 
   setTimeout(function () {
-    option1.style.animation =
-      "typing 2s steps(" + option1.textContent.length + ")";
+    option1.style =
+      "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click", restart);
   option2.addEventListener("click", viewScore);
-}
-
-function restart() {
-  var startingUrl = "./index.html";
-  location.assign(startingUrl);
 }
 
 function viewScore() {
@@ -505,6 +516,7 @@ function startSunny() {
   option1.addEventListener("click", sunnynextQuestionWrong);
   option2.addEventListener("click", sunnynextQuestionCorrect);
 }
+
 
 function sunnynextQuestionWrong(event) {
   event.preventDefault();
