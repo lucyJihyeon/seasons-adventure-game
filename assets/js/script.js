@@ -17,7 +17,7 @@ function getParams(event) {
   var city = document.getElementById("dark_select").value;
   var userName = document.getElementById("dark_field").value;
   console.log(city);
-  if ((!city) || (!userName)) {
+  if (!city || !userName) {
     promptEl.textContent = "Please Enter Your name and Select a city to begin!";
     return;
   }
@@ -89,17 +89,7 @@ function getWeather(name, weatherDsc, temp, username) {
   weatherUl.appendChild(cityName);
   weatherUl.appendChild(temperature);
   weatherUl.appendChild(weatherDscr);
-  
-  var newUser = {
-    name: username,
-    city: name,
-    score: initscore,
-    weather: weatherDsc,
-  }
-  var userInformations = JSON.parse(localStorage.getItem("userInfos")) || [];
-  userInformations.push(newUser);
-  localStorage.setItem("userInfos", JSON.stringify(userInformations));
-  savetoLocalStorage(newUser);
+
   addBackground(weatherDsc);
 }
 
@@ -137,16 +127,38 @@ function addBackground(weather) {
   }
 }
 
-
 function startGame(event) {
   event.preventDefault();
   var userName = document.getElementById("dark_field").value;
-  var queryString = "./start.html?q=" +  userName;
-  location.assign(queryString);
+  fetch(owUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      if (data) {
+        console.log(data);
+        var cityName = data.name;
+        var weather = data.weather[0].main;
+        var newUser = {
+          name: userName,
+          city: cityName,
+          score: initscore,
+          weather: weather,
+        };
+      }
+
+      var userInformations =
+        JSON.parse(localStorage.getItem("userInfos")) || [];
+      userInformations.push(newUser);
+      localStorage.setItem("userInfos", JSON.stringify(userInformations));
+      savetoLocalStorage(newUser);
+      var queryString = "./start.html?q=" + userName;
+      location.assign(queryString);
+    });
 }
-
-
 
 selectbtn.addEventListener("click", getParams);
 startbtn.addEventListener("click", startGame);
-
