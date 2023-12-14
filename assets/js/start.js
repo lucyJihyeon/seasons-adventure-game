@@ -11,6 +11,7 @@ var iconContainer = document.getElementById("icon-container");
 var searchParams = document.location.search.split("q=");
 var user = searchParams[1];
 var heartNum = 3;
+var userScore = 0;
 
 getintro(user);
 
@@ -69,7 +70,6 @@ function getintro(user) {
     currentW = "raining";
     startRain(userCity);
   }
-
   weather.textContent = "It is currently " + currentW + " In " + userCity;
 }
 function startOvercast(userCity)  {
@@ -157,6 +157,7 @@ function rainynextQuestionWrong(event) {
   intro.innerHTML = "";
   heartNum -= 1;
   getlives(heartNum);
+  userScore += 5;
   option1.removeEventListener("click", rainynextQuestion1A);
   option1.removeEventListener("click",rainynextQuestion2A);
   option2.removeEventListener("click", rainynextQuestionWrong);
@@ -192,6 +193,7 @@ function rainynextQuestionWrong2A(event) {
   event.preventDefault();
   intro.innerHTML = "";
   heartNum -= 1;
+  userScore += 5;
   getlives(heartNum);
   option1.removeEventListener("click", rainynextQuestionWrong2A);
   option2.removeEventListener("click", rainynextQuestion1A);
@@ -222,6 +224,7 @@ function rainynextQuestionWrong2A(event) {
 function rainynextQuestionWrong2bFinal(event) {
   event.preventDefault();
   heartNum = 0;
+  userScore += 10;
   getlives(heartNum);
   option1.style.animation = "";
   option2.style.animation = "";
@@ -255,6 +258,7 @@ function rainynextQuestion1A(event) {
   intro.innerHTML = "";
   option1.style.animation = "";
   option2.style.animation = "";
+  userScore += 10;
   option1.removeEventListener("click", rainynextQuestion1A);
   option2.removeEventListener("click", rainynextQuestionWrong);
 
@@ -287,6 +291,7 @@ function rainynextQuestion2A(event) {
   option1.style.animation = "";
   option2.style.animation = "";
   heartNum -= 1;
+  userScore += 10;
   getlives(heartNum);
   option1.removeEventListener("click", rainynextQuestion2A);
   option2.removeEventListener("click", rainynextQuestionWrong);
@@ -314,6 +319,7 @@ function rainynextQuestion2A(event) {
 
 function rainynextQuestion3A(event)  {
   event.preventDefault();
+  userScore += 10;
   option1.style.animation = "";
   option2.style.animation = "";
   option1.removeEventListener("click", rainynextQuestion3A);
@@ -346,6 +352,7 @@ function rainynextQuestion3A(event)  {
 
 function rainynextQuestion3B(event) {
   event.preventDefault();
+  userScore += 5;
   option1.style.animation = "";
   option2.style.animation = "";
   option1.removeEventListener("click", rainynextQuestion3A);
@@ -375,6 +382,7 @@ function rainynextQuestion3B(event) {
 }
 function rainynextQuestion4A(event) {
   event.preventDefault();
+  userScore += 15;
   option1.style.animation = "";
   option2.style.animation = "";
   option1.removeEventListener("click", rainylose);
@@ -403,12 +411,14 @@ function rainynextQuestion4A(event) {
 }
 function success(event)  {
   event.preventDefault();
-  var successUrl = ('./game_end.html?q=' + user);
+  userScore += 20;
+  var successUrl = ('./game_end.html?q=' + user + "&score=" + userScore);
   location.assign(successUrl);
 }
 
 function rainylose(event) {
   event.preventDefault();
+  userScore += 5;
   var userinfo = JSON.parse(localStorage.getItem(user));
   var userCity = userinfo.city;
   option1.style.animation = "";
@@ -440,6 +450,7 @@ function rainylose(event) {
 function rainynextQuestion2BFianl(event) {
   event.preventDefault();
   heartNum = 0;
+  userScore += 3;
   intro.innerHTML = "";
   option1.style.animation = "";
   option2.style.animation = "";
@@ -472,7 +483,7 @@ function restart() {
 }
 
 function viewScore() {
-  var scoreUrl = "./scores.html?q=" + user;
+  var scoreUrl = "./scores.html?q=" + user + "&score=" + userScore;
   location.assign(scoreUrl);
 }
 

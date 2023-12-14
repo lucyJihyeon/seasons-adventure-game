@@ -14,6 +14,8 @@
 
     <!-- Check if the game is successful or failed -->
     <script>
+        
+       
         // Assuming you have a variable 'isSuccess' indicating success or failure
         var isSuccess = true; // Change to false for failure
         var last_played= {"name":"Jordan", "city":"Sacramento", "weather":"60", "score":"90"}
@@ -35,9 +37,14 @@
         function redirectToStart() {
             window.location.href = 'index.html';
         }
-
+       
         function redirectToScores() {
-            window.location.href = 'scores.html';
+            var searchUser = document.location.search.split("q=");
+            var userSplit = searchUser[1].split("&");
+            var user = userSplit[0];
+            var searchScore = document.location.search.split("score=");
+            var scoreNew = searchScore[1];
+            window.location.href = "scores.html?q=" + user + "&score=" + scoreNew;
         }
 
         function showFailedPoint() {

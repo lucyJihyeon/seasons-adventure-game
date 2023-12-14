@@ -25,12 +25,30 @@
 
     <script>
         // Assuming 'details' is your localStorage variable
-        //var details = JSON.parse(localStorage.getItem('details'));
-        var searchParams = document.location.search.split("q=");
-        var user = searchParams[1];
-        var details = JSON.parse(localStorage.getItem(user));
+        var searchUser = document.location.search.split("q=");
+        var userSplit = searchUser[1].split("&");
+        var user = userSplit[0];
+        console.log(userSplit);
+        console.log(user);
+        console.log(searchUser);
         
+        var searchScore = document.location.search.split("score=");
+        var scoreNew = searchScore[1];
+        console.log(searchScore);
+        console.log(scoreNew);
+        
+
        var details = JSON.parse(localStorage.getItem("userInfos")) || [];
+       var newScore = JSON.parse(localStorage.getItem(user));
+       newScore.score = scoreNew;
+       
+        if (details.length > 0) {
+            details.pop();
+            console.log(details);
+        }
+       details.push(newScore);
+       localStorage.setItem("userInfos", JSON.stringify(details)); 
+
         // Reference to the table body
         var tableBody = document.querySelector('tbody');
         
