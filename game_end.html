@@ -25,18 +25,9 @@
             displayContent.textContent = "Congratulations  "+ last_played["name"] +
                                          "Youve survived your adventure in " + last_played["city"];
 
-            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
             document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
-        } else {
-            document.write('<button onclick="showFailedPoint()">Show Failed Point</button>');
-            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
-            document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
-        }
-
-        // Functions to handle button clicks
-        function redirectToStart() {
-            window.location.href = 'index.html';
-        }
+        } 
+        
        
         function redirectToScores() {
             var searchUser = document.location.search.split("q=");
@@ -47,10 +38,6 @@
             window.location.href = "scores.html?q=" + user + "&score=" + scoreNew;
         }
 
-        function showFailedPoint() {
-            // Add code to display the failed point information
-            alert('Displaying failed point...');
-        }
     </script>
 
 </body>
