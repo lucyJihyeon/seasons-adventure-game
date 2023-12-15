@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets\css\style.css" />
     <title>Game Result</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>Game Result</h1>
     <p id="display-content"></p>
 
-    <!-- Check if the game is successful or failed -->
     <script>
-        // Assuming you have a variable 'isSuccess' indicating success or failure
-        var isSuccess = true; // Change to false for failure
-        var last_played= {"name":"Jordan", "city":"Sacramento", "weather":"60", "score":"90"}
+      //Get the user name from the parameter 
+      var searchUser = document.location.search.split("q=");
+      var userSplit = searchUser[1].split("&");
+      var user = userSplit[0];
+      //Get the user informatino from the localStorage saved as the user name
+      var last_played = JSON.parse(localStorage.getItem(user));
+      console.log(last_played.name);
+      console.log(user);
+        
+      var displayContent = document.getElementById("display-content");
+      displayContent.textContent =
+        "Congratulations , " +
+        last_played.name +
+        "! You've survived your adventure in " +
+        last_played.city;
 
-        if (isSuccess) {
-            var displayContent = document.getElementById("display-content");
-            displayContent.textContent = "Congratulations  "+ last_played["name"] +
-                                         "Youve survived your adventure in " + last_played["city"];
-
-            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
-            document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
-        } else {
-            document.write('<button onclick="showFailedPoint()">Show Failed Point</button>');
-            document.write('<button onclick="redirectToStart()">Go to Start Page</button>');
-            document.write('<button onclick="redirectToScores()">Go to Scores Page</button>');
-        }
-
-        // Functions to handle button clicks
-        function redirectToStart() {
-            window.location.href = 'index.html';
-        }
-
-        function redirectToScores() {
-            window.location.href = 'scores.html';
-        }
-
-        function showFailedPoint() {
-            // Add code to display the failed point information
-            alert('Displaying failed point...');
-        }
+      document.write(
+        '<button onclick="redirectToScores()">Go to Scores Page</button>'
+      );
+      //When the user clicks "Go to Scores Page", redirect them to scores.html with their user information as parameters
+      function redirectToScores() {
+        var searchUser = document.location.search.split("q=");
+        var userSplit = searchUser[1].split("&");
+        var user = userSplit[0];
+        var searchScore = document.location.search.split("score=");
+        var scoreNew = searchScore[1];
+        window.location.href = "scores.html?q=" + user + "&score=" + scoreNew;
+      }
     </script>
-
-</body>
+  </body>
 </html>
