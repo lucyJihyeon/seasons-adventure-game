@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Scores</h1>
+    <h1 id="user-score"></h1>
     <button id="start-btn" type="button" class="nes-btn">
         Go Back
       </button>
@@ -32,19 +33,18 @@
         var userSplit = searchUser[1].split("&");
         var user = userSplit[0];
         var goBackBtn = document.getElementById("start-btn");
-        console.log(userSplit);
-        console.log(user);
-        console.log(searchUser);
+        
         
         var searchScore = document.location.search.split("score=");
         var scoreNew = searchScore[1];
-        console.log(searchScore);
-        console.log(scoreNew);
+        
         
 
        var details = JSON.parse(localStorage.getItem("userInfos")) || [];
        var newScore = JSON.parse(localStorage.getItem(user));
        newScore.score = scoreNew;
+       var scoreContainer = document.getElementById("user-score");
+       scoreContainer.textContent = "Your Score: " + scoreNew ; 
        
         if (details.length > 0) {
             details.pop();
