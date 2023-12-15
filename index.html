@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Seasons</title>
+    <link rel="icon" type="image/x-icon" href="assets\img\ash-favicon.png" />
     <link
       href="https://unpkg.com/nes.css@latest/css/nes.min.css"
       rel="stylesheet"
@@ -18,10 +19,11 @@
       defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLylZUYb0UAI4-mRgItl36-bf6IlPMMxI&callback=initMap"
     ></script>
-   
   </head>
   <body>
-    <h1>Adventure Game Title</h1>
+    <div class="seasons-container">
+      <h1>Seasons Adventure Game</h1>
+    </div>
 
     <!-- player name input -->
     <div id="name-input" class="nes-field is-inline">
@@ -49,14 +51,12 @@
           <option value="Cairo">Cairo, Egypt</option>
           <option value="Fort Myers">Fort Myers, Florida</option>
           <option value="champlitte">Champlitte, Paris</option>
-          
-
         </select>
       </div>
     </div>
     <!-- select button -->
     <div class="button-container">
-      <button id="select-btn" type="button" class="nes-btn">
+      <button id="select-btn" type="button" class="nes-btn is-success">
         Select the City
       </button>
     </div>
@@ -66,19 +66,17 @@
     <div id="map-container">
       <div id="map" style="width: 50%; height: 300px"></div>
       <div id="weather" style="width: 50%; height: 300px">
-        <ul id="weather-widget">
-        </ul>
-      </div> 
-    </div>   
-
-
+        <ul id="weather-widget"></ul>
+      </div>
     </div>
     <div class="button-container">
-      <button id="start-btn" type="button" class="nes-btn">
+      <button id="start-btn" type="button" class="nes-btn is-primary">
         Start the Game
       </button>
+      <!-- link to scores page -->
+      <button id="scores-btn" type="button" class="nes-btn is-error">
+        See the Scores
+      </button>
     </div>
-    
-    
   </body>
 </html>

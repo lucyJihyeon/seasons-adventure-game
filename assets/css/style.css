@@ -5,20 +5,22 @@
 body {
     background-color: #212529;
     color: white;
-
-    padding: 10%;
-
-   
-
+    overflow-x: hidden;
+    padding: 1%;
 }
 
 h1 {
     display: flex;
     justify-content: center;
 }
+
+.nes-input, .nes-select {
+    margin-top: 1%;
+}
+
 #name-input {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
     background-color: #212529; 
     padding: 1rem;
@@ -33,9 +35,12 @@ h1 {
     align-items: center;
 }
 
+ .label {
+    margin-bottom: 1%;
+}
+
 .button-container   {
     display: flex;
-    align-items: center;
     justify-content: center;
     margin: 10px;
 }
@@ -66,9 +71,14 @@ h1 {
     border-radius: 20px;
 }
 
-
 li  {
     list-style: none;
+}
+
+.nes-table-responsive {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Hide scrollbars on table */
 }
 
 table {
@@ -88,12 +98,4 @@ th, td {
 th {
     background-color: #f2f2f2;
     color: black;
-}
-
-button {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
 }

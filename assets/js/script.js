@@ -7,6 +7,7 @@ var googlemapsUrl =
 var initLat = "51.508742";
 var initLng = "-0.120850";
 var selectbtn = document.getElementById("select-btn");
+var scoresBtn = document.getElementById("scores-btn");
 var promptEl = document.getElementById("not-selected");
 var startbtn = document.getElementById("start-btn");
 var initscore = 0;
@@ -146,4 +147,4 @@ function startGame(event) {
 
 selectbtn.addEventListener("click", getParams);
 startbtn.addEventListener("click", startGame);
-
+scoresBtn.addEventListener("click", () => location.assign("scores.html"))
