@@ -819,7 +819,7 @@ function rightLeft()  {
 function goLeft() {
   heartNum = 0
   getlives(heartNum);
-  userScore -=5;
+  userScore += 5;
   option2.style = "";
   
   option1.removeEventListener("click", goRight);
@@ -910,7 +910,7 @@ function darkCave() {
 }
 function greedy() {
   heartNum = 0;
-  userScore += 15;
+  userScore += 10;
   getlives(heartNum);
   
 
