@@ -541,7 +541,7 @@ function startSunny(userCity) {
   });
   option2.addEventListener("click", acceptJourney);
 }
-
+//Update the game node
 function sunnyLose(userCity) {
   //empt the intro
   intro.innerHTML = "";
@@ -608,7 +608,7 @@ function acceptJourney() {
 }
 
 function askLocals() {
-  heartNum = 2;
+  heartNum = 1;
   getlives(heartNum);
   userScore += 10;
   option2.style = "";
