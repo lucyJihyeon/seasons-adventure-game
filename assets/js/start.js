@@ -185,7 +185,7 @@ function rainynextQuestionWrong(event) {
   intro.innerHTML = "";
   heartNum -= 1;
   getlives(heartNum);
-  userScore += 5;
+  userScore += 10;
   option1.removeEventListener("click", rainynextQuestion1A);
   option1.removeEventListener("click", rainynextQuestion2A);
   option2.removeEventListener("click", rainynextQuestionWrong);
@@ -726,7 +726,7 @@ function libraryMap() {
   userScore += 10;
   option2.style = "";
   option1.style = "";
-  heartNum = 2;
+  heartNum = 1;
   getlives(heartNum);
   
   option1.removeEventListener("click", libraryMap);
@@ -841,3 +841,295 @@ function goLeft() {
 
   option2.addEventListener("click",viewScoreHandler);
 }
+
+function startSnowy(userCity) {
+  heartNum = 3;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  //updating the game node
+  nodeStory.textContent =
+    "You stand at the summit of a snowy covered mountain, surrounded by pristine white landscapes and overlooking " + userCity
+      + ".";
+  nodeStatus.textContent =
+  "Two mysterious figures offer guidance. An old sage with ancient wisdom or a talking Arctic fox with magical insights.";
+   
+  option1.textContent = 
+  "Follow the Old Sage"
+  option2.textContent = 
+  "Follow the Arctic Fox"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", followSage);
+  option2.addEventListener("click", followFox);
+}
+function followSage() {
+  heartNum -= 1;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click",followSage);
+  option2.removeEventListener("click", followFox);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Old Sage reveals that the mountain whispers tales of ice and ancient magic.";
+  
+  nodeStatus.textContent =
+   "Together, you and the Old Sage venture into the snowy valley and encounter a mysterious cave entrance that emanates strange magical energy."
+  option1.textContent = 
+  "Enter the mysterious cave and learn more about this strange magical energy"
+  option2.textContent = 
+  "Continue through the valley spooked by the strange aura the cave gives off"
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", enterValley);
+  option2.addEventListener("click", continueValley);
+}
+function continueValley() {
+  heartNum -= 1;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click", enterValley);
+  option2.removeEventListener("click", continueValley);
+  userScore += 5;
+  //updating the game node
+  nodeStory.textContent =
+  "You're caught in a snowstorm without any shelter! If you don't get warm in time you'll die in the snowy tundra.";
+  nodeStatus.textContent =
+  "You spot a dead TaunTaun and remember what Luke Skywalker did"
+  option1.textContent = 
+  "uses a lightsaber to slice open the belly of a deceased Tauntaun"
+  option2.textContent = 
+  "I've never seen Star Wars"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", starWars);
+  option2.addEventListener("click", noStarWars);
+}
+function starWars() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", starWars);
+  option2.removeEventListener("click", noStarWars);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "Congratulations! You're a nerd! But you've managed to survive the snowstorm thanks to the help of George Lucas!"
+  nodeStatus.textContent =
+  "The Old Sage, however, seems shocked by your unconventional survival tactic. He informs you that he cannot continue the journey with you"
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function noStarWars() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", starWars);
+  option2.removeEventListener("click", noStarWars);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "Your lack of pop culture references gets you killed in the snowy tundra."
+  nodeStatus.textContent =
+  "You should've made a wiser choice."
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function followFox()  {
+  heartNum -= 1;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click",followSage);
+  option2.removeEventListener("click", followFox);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Arctic Fox guides you deeper into the cave. The air is filled with a faint glow, and the echoing sounds of unseen creatures reverberate through the icy chambers"
+  nodeStatus.textContent =
+  "He informs you that he's a mountain spirit who guides travelers to safety down the mountain and gives you a meal to eat.";
+  option1.textContent = 
+  "Ask the Arctic Fox about this strange magical aura in the air."
+  option2.textContent = 
+  "Steal the food in the cave and leave"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", askFox);
+  option2.addEventListener("click", stealFood);
+}
+function askFox() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood);
+  option2.removeEventListener("click", stealFood2);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "The Arctic Fox has deceived you! The Frost Giant emerges from the cave and traps you in his lair all thanks to his shape-shifting minions. You've been captured with no hope of escape "
+  nodeStatus.textContent =
+  "Now, you learn your lesson, Never believe a cunning Arctic Fox."
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function stealFood()  {
+  userScore += 5;
+  heartNum = 0;
+  getlives(heartNum);
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "As you attempt to steal the food, the Arctic Fox, sensing your greed, transforms into a fearsome creature. The cave shudders, and you find yourself entangled in the Fox's magical powers.";
+
+  nodeStatus.textContent =
+  "The last thing you hear is a warning about the consequences of dishonesty as the Arctic Fox's magic seals your fate.";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function enterValley()  {
+  getlives(heartNum)
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", enterValley);
+  option2.removeEventListener("click", continueValley);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Old Sage transforms into an Arctic Fox and guides you deeper into the cave. The air is filled with a faint glow, and the echoing sounds of unseen creatures reverberate through the icy chambers";
+  nodeStatus.textContent =
+  "He informs you that he's a mountain spirit who guides travelers to safety down the mountain and gives you a meal to eat.";
+  option1.textContent = 
+  "Ask the him about this strange magical aura in the air."
+  option2.textContent = 
+  "Steal the food in the cave and leave. because you just saw an old man turn into a fox";
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", askFox);
+  option2.addEventListener("click", stealFood2);
+}
+function stealFood2() {
+  getlives(heartNum)
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood2);
+  userScore += 20;
+  //updating the game node
+  nodeStory.textContent =
+  "Thankfully you had enough food to make it down the mountain. You find an inn for the night and rest from an odd day in the snow."
+  nodeStatus.textContent =
+  "As you approach the inn, you notice a warm glow and the inviting scent of a hearty meal."
+  option1.textContent = 
+  "Do not enter and continue your journey"
+  option2.textContent = 
+  "Enter the inn and warm up."
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", ignoreInn);
+  option2.addEventListener("click", success);
+}
+function ignoreInn()  {
+  userScore += 5;
+  option1.removeEventListener("click", ignoreInn);
+  option2.removeEventListener("click", viewScoreHandler);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "You decide to brave the cold and continue your journey without seeking shelter. As the night progresses, the temperature drops sharply, and you find yourself shivering in the biting cold.";
+  nodeStatus.textContent =
+  "Without the warmth of the inn, the harsh weather takes its toll. Your energy wanes, and you struggle to endure the freezing conditions.";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+
