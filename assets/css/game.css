@@ -1,46 +1,60 @@
+/* Universal Selector to set the default margin, padding, and line height */
 * {
-  margin: 0;
-  padding: 0;
-  line-height: 2;
-}
-body {
-  background-color: #212529;
-  color: white;
-  padding: 10%;
-}
-
-#intro {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-#button-container {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10%;
-  justify-content: space-around;
-}
-
-#option-1, #option-2 {
+    margin: 0;
+    padding: 0;
+    line-height: 2;
+  }
+  
+  /* Element Selector to set background color, text color, and padding for the body */
+  body {
+    background-color: #212529;
+    color: white;
+    padding: 10%;
+  }
+  
+  /* ID Selector to set style for the introduction section */
+  #intro {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  /* ID Selector to set style for the button container */
+  #button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10%;
+    justify-content: space-around;
+  }
+  
+  /* ID Seclector to set style for option 1 and option 2 */
+  #option-1, #option-2 {
     width: 100%;
     white-space: wrap;
     overflow: hidden;
     margin: 2%;
     transform: scale(1);
-}
-
-@keyframes typing {
-    from { width: 0%; }
-    to { width: 50%; }
-}
+  }
   
-#icon-container {
+  /* Animation for typing effect using keyframes */
+  @keyframes typing {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 50%;
+    }
+  }
+  
+  /* ID Selector to set style for the icon container */
+  #icon-container {
     display: flex;
     width: fit-content;
     margin-bottom: 50px;
-}
-
-i {
+  }
+  
+  /* Element Selector to set style for generic icons */
+  i {
     margin-left: 15px;
-}
+  }
+  

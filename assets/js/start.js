@@ -730,7 +730,7 @@ function libraryMap() {
   getlives(heartNum);
   
   option1.removeEventListener("click", libraryMap);
-  option1.removeEventListener("click", libraryMap);
+  option2.removeEventListener("click", libraryMap);
   
 
   nodeStory.textContent =
@@ -757,11 +757,12 @@ function libraryMap() {
 function stuck()  {
   heartNum = 0
   getlives(heartNum);
-  userScore -=5;
+  userScore -=10;
   option2.style = "";
   
   option1.removeEventListener("click", rightLeft);
-  option1.removeEventListener("click", stuck);
+  option2.removeEventListener("click", stuck);
+  option2.removeEventListener("click", viewScoreHandler);
   option2.style = "";
   option1.style = "";
 
@@ -790,7 +791,8 @@ function rightLeft()  {
   getlives(heartNum);
   
   option1.removeEventListener("click", rightLeft);
-  option1.removeEventListener("click", stuck);
+  option2.removeEventListener("click", stuck);
+  option2.removeEventListener("click", viewScoreHandler);
   option2.style = "";
   option1.style = "";
 
@@ -810,24 +812,26 @@ function rightLeft()  {
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
-  option1.addEventListener("click", success);
+  option1.addEventListener("click", goRight);
   option2.addEventListener("click", goLeft);
 }
 
 function goLeft() {
   heartNum = 0
   getlives(heartNum);
+  userScore -=5;
   option2.style = "";
   
-  option1.removeEventListener("click", success);
-  option1.removeEventListener("click", goLeft);
+  option1.removeEventListener("click", goRight);
+  option2.removeEventListener("click", goLeft);
+  option2.removeEventListener("click", viewScoreHandler);
   option2.style = "";
   option1.style = "";
 
   nodeStory.textContent =
-  "You decide to go left, following the path indicated on the wrinkly map. The journey takes you deeper into the unknown, and the surroundings become increasingly unfamiliar."
+  "Intrigued by a strange light, you follow it deeper into the woods."
   nodeStatus.textContent =
-  "As you venture further, you realize the map might not be as reliable as you thought. The once-promising path becomes a maze of tangled vegetation, and you find yourself completely lost."
+  "However, the light leads you to a magical barrier, and you are unable to proceed. It seems you've reached the end of your journey in the enchanted forest."
   option1.textContent = ""
   option2.textContent = "View the Scores"
 
@@ -842,6 +846,124 @@ function goLeft() {
   option2.addEventListener("click",viewScoreHandler);
 }
 
+function goRight()  {
+  userScore += 10;
+  option2.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", goRight);
+  option2.removeEventListener("click", goLeft);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "You chose the right path and venture deeper into the unknown terrain."
+  nodeStatus.textContent =
+  "The surroundings become increasingly challenging, with rocky landscapes and hidden pitfalls."
+  option1.textContent = 
+  "Climb the rocky terrain.";
+  option2.textContent = 
+  "Navigate through a dark cave";
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", climb);
+  option2.addEventListener("click", darkCave);
+}
+function darkCave() {
+  userScore += 15;
+  option2.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", climb);
+  option2.removeEventListener("click", darkCave);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "Intrigued by the mystery, you choose to enter the dark cave. The air becomes cooler as you venture deeper, and the only source of light is the faint glow at the end of the tunnel."
+  nodeStatus.textContent =
+  "After a suspenseful journey through the cave, you emerge into a breathtaking oasis surrounded by lush greenery, sparkling water, and vibrant flowers. It seems you've discovered the hidden oasis that everyone was talking about."
+  option1.textContent = 
+  "share the location of the oasis with other people"
+  option2.textContent = 
+  "enjoy the oasis all by yourself"
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", success);
+  option2.addEventListener("click", greedy)
+}
+function greedy() {
+  heartNum = 0;
+  userScore += 15;
+  getlives(heartNum);
+  
+
+  option1.removeEventListener("click", success);
+  option2.removeEventListener("click", greedy);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+    "Overwhelmed by the beauty and tranquility of the oasis, greed takes over. You decide to keep the oasis a secret, wanting to savor its wonders all to yourself.";
+
+  nodeStatus.textContent =
+    "Days pass, and you enjoy the oasis in solitude. However, your selfishness comes at a cost. The magic of the oasis begins to fade, and the once vibrant surroundings wither away.";
+
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click", viewScoreHandler);
+}
+function climb() {
+  heartNum = 0
+  getlives(heartNum);
+  option2.style = "";
+  
+  option1.removeEventListener("click", climb);
+  option2.removeEventListener("click", darkCave);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "You decide to climb the rocky mountain, hoping to gain a better vantage point."
+  nodeStatus.textContent =
+  "As you ascend higher, you unexpectedly encounter a hidden trap laid by the mountain's mysterious inhabitants, and you fall...";
+
+  option1.textContent = ""
+  option2.textContent = "View the Scores"
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click",viewScoreHandler);
+}
 function startSnowy(userCity) {
   heartNum = 3;
   getlives(heartNum);

@@ -1,51 +1,57 @@
+/* Universal Selector to reset default margin and padding for all elements */
 * {
     margin: 0;
     padding: 0;
-}
-body {
+  }
+  
+  /* Element Selector to set background color, text color, and padding for the body */
+  body {
     background-color: #212529;
     color: white;
-
     padding: 10%;
-
-   
-
-}
-
-h1 {
+  }
+  
+  /* Element Selector to center the heading */
+  h1 {
     display: flex;
     justify-content: center;
-}
-#name-input {
+  }
+  
+  /* ID Selector to style the name input container */
+  #name-input {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    background-color: #212529; 
+    background-color: #212529;
     padding: 1rem;
-}
-
-#location-input {
+  }
+  
+  /* ID Selector to style the location input container */
+  #location-input {
     background-color: #212529;
     padding: 1rem 1.2rem 1rem 1rem;
     width: calc(100% + 8px);
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.button-container   {
+  }
+  
+  /* Class Selector to style the button container */
+  .button-container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px;
-}
-
-#map-container  {
+  }
+  
+  /* ID Selector to style the map container */
+  #map-container {
     display: flex;
     flex-direction: row;
-}
-
-#weather    {
+  }
+  
+  /* ID Selector to style the weather container */
+  #weather {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,53 +60,63 @@ h1 {
     margin-left: 10px;
     border-radius: 20px;
     text-shadow: 2px 2px 2px black;
-}
-#weather li {
+  }
+  
+  /* Nested ID and Element Selectors to style list items within the weather container */
+  #weather li {
     margin: 15px;
-}
-#temperature    {
+  }
+  
+  /* ID Selector to style the temperature */
+  #temperature {
     font-size: 25px;
-}
-
-#map {
+  }
+  
+  /* ID Selector to style the map image */
+  #map {
     border-radius: 20px;
-}
-
-
-li  {
+  }
+  
+  /* Element Selector to remove list styling */
+  li {
     list-style: none;
-}
-
-table {
+  }
+  
+  /* Element Selector to style the table */
+  table {
     border-collapse: collapse;
     width: 100%;
-}
-
-th, td {
+  }
+  
+  /* Element Selectors to style table header and cells */
+  th, td {
     border: 5px solid #212529;
     text-align: center;
     padding: 8px;
     background-color: #f2f2f2;
     color: black;
-
-}
-
-th {
+  }
+  
+  /* Element Selector to style table header */
+  th {
     background-color: #f2f2f2;
     color: black;
-}
-
-button {
+  }
+  
+  /* Element Selector to style generic buttons */
+  button {
     display: inline-block;
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-}
-
-#game-result    {
+  }
+  
+  /* ID Selector to style the game result container */
+  #game-result {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+  }
+  
