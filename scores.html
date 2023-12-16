@@ -1,77 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets\css\style.css" />
     <title>Scores</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Scores</h1>
     <h1 id="user-score"></h1>
-    <button id="start-btn" type="button" class="nes-btn">
-        Go Back
-      </button>
+    <button id="start-btn" type="button" class="nes-btn">Go Back</button>
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Weather</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Inserting data dynamically using JavaScript -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Weather</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Inserting data dynamically using JavaScript -->
+      </tbody>
     </table>
 
     <script>
-        // Assuming 'details' is your localStorage variable
-        var searchUser = document.location.search.split("q=");
-        var userSplit = searchUser[1].split("&");
-        var user = userSplit[0];
-        var goBackBtn = document.getElementById("start-btn");
-        
-        
-        var searchScore = document.location.search.split("score=");
-        var scoreNew = searchScore[1];
-        
-        
+      // Assuming 'details' is your localStorage variable
+      var searchUser = document.location.search.split("q=");
+      var userSplit = searchUser[1].split("&");
+      var user = userSplit[0];
+      var goBackBtn = document.getElementById("start-btn");
 
-       var details = JSON.parse(localStorage.getItem("userInfos")) || [];
-       var newScore = JSON.parse(localStorage.getItem(user));
-       newScore.score = scoreNew;
-       var scoreContainer = document.getElementById("user-score");
-       scoreContainer.textContent = "Your Score: " + scoreNew ; 
-       
-        if (details.length > 0) {
-            details.pop();
-            console.log(details);
-        }
-       details.push(newScore);
-       localStorage.setItem("userInfos", JSON.stringify(details)); 
+      var searchScore = document.location.search.split("score=");
+      var scoreNew = searchScore[1];
 
-        // Reference to the table body
-        var tableBody = document.querySelector('tbody');
-        
-        // Loop through details and populate the table
-        details.forEach(function(detail) {
-            var row = tableBody.insertRow();
-            var cellName = row.insertCell(0);
-            var cellCity = row.insertCell(1);
-            var cellWeather = row.insertCell(2);
-            var cellScore = row.insertCell(3);
+      var details = JSON.parse(localStorage.getItem("userInfos")) || [];
+      var newScore = JSON.parse(localStorage.getItem(user));
+      newScore.score = scoreNew;
+      var scoreContainer = document.getElementById("user-score");
+      scoreContainer.textContent = "Your Score: " + scoreNew;
 
-            cellName.innerHTML = detail.name;
-            cellCity.innerHTML = detail.city;
-            cellWeather.innerHTML = detail.weather;
-            cellScore.innerHTML = detail.score;
-        });
-        function goBack() {
-            var startingUrl = "./index.html";
-            location.assign(startingUrl);
-        }
-        goBackBtn.addEventListener("click", goBack);
+      if (details.length > 0) {
+        details.pop();
+        console.log(details);
+      }
+      details.push(newScore);
+      localStorage.setItem("userInfos", JSON.stringify(details));
+
+      // Reference to the table body
+      var tableBody = document.querySelector("tbody");
+
+      // Loop through details and populate the table
+      details.forEach(function (detail) {
+        var row = tableBody.insertRow();
+        var cellName = row.insertCell(0);
+        var cellCity = row.insertCell(1);
+        var cellWeather = row.insertCell(2);
+        var cellScore = row.insertCell(3);
+
+        cellName.innerHTML = detail.name;
+        cellCity.innerHTML = detail.city;
+        cellWeather.innerHTML = detail.weather;
+        cellScore.innerHTML = detail.score;
+      });
+      function goBack() {
+        var startingUrl = "./index.html";
+        location.assign(startingUrl);
+      }
+      goBackBtn.addEventListener("click", goBack);
     </script>
+  </body>
+</html>

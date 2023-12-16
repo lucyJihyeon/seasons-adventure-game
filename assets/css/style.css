@@ -97,3 +97,10 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+#game-result    {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
