@@ -47,13 +47,15 @@ THEN Displays the score for each person with city and weather
 ## APIs Used
 OpenWeather API
 Google Maps API
-TomTom
+
 
 ## CSS Framework
 NES.css
 
-## Mockup image/screenshot
+## Preview
+This is the preview of the application 
+![alt Seasons: Adventure Game](./assets/img/screenRecording.gif)
 
 ## Access the game
 
-Open your browser and go to <link> to play the game
+Open your browser and go to [Seasons: Adventure Game](https://lucyjihyeon.github.io/seasons-adventure-game/) to play the game
