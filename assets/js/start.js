@@ -11,7 +11,8 @@ var iconContainer = document.getElementById("icon-container");
 var searchParams = document.location.search.split("q=");
 var user = searchParams[1];
 var heartNum = 3;
-var userScore = 0;
+//starting score set up
+var userScore = 20;
 
 getintro(user);
 
@@ -25,10 +26,9 @@ function getlives(heartNum) {
     iconContainer.appendChild(heart);
   }
 }
-
 //Function to initialize the game and display the user's information
 function getintro(user) {
-  //Get the current time of day and time 
+  //Get the current time of day and time
   var daynight = dayjs().format("A");
   var morning = dayjs().format("h");
   var time = parseInt(morning);
@@ -37,12 +37,18 @@ function getintro(user) {
   var currentW = userinfo.weather;
   var userCity = userinfo.city;
 
-  //Display a personalized greeting based on the time 
+  //Display a personalized greeting based on the time
   if (daynight == "AM") {
     greeting.textContent = "Good Morning, " + user;
-  } else if ((daynight == "PM" && time < 6) || (daynight == "PM" && time === 12)) {
+  } else if (
+    (daynight == "PM" && time <= 6) ||
+    (daynight == "PM" && time === 12)
+  ) {
     greeting.textContent = "Good Afternoon, " + user;
-  } else if ((daynight == "PM" && time > 6) || (daynight == "AM" && time === 12)){
+  } else if (
+    (daynight == "PM" && time >= 6) ||
+    (daynight == "AM" && time === 12)
+  ) {
     greeting.textContent = "Good Night, " + user;
   }
 
@@ -80,78 +86,77 @@ function getintro(user) {
   //Display the weather information to the user
   weather.textContent = "It is currently " + currentW + " In " + userCity;
 }
-
 //Function to start the overcast scenario
-function startOvercast(userCity)  {
+function startOvercast(userCity) {
   //Set up the game scenario for the overcast weather
-  nodeStory.textContent = "The sky hangs heavy with thick, gray clouds, casting a dim light over your surroundings. You find yourself in the midst of an overcast day, the air pregnant with the promise of rain. ";
-  nodeStatus.textContent ="Caught between the uncertainty of impending rain and a subtle tension in the cloudy atmosphere, you must make a decision. What will you do? ";
-  option1.textContent = "Stay in the current area and embrace the overcast ambiance.";
-  option2.textContent ="Go to a location known for sudden rain showers.";
-  //Add typying animation to the option buttons 
+  nodeStory.textContent =
+    "The sky hangs heavy with thick, gray clouds, casting a dim light over your surroundings. You find yourself in the midst of an overcast day, the air pregnant with the promise of rain. ";
+  nodeStatus.textContent =
+    "Caught between the uncertainty of impending rain and a subtle tension in the cloudy atmosphere, you must make a decision. What will you do? ";
+  option1.textContent =
+    "Stay in the current area and embrace the overcast ambiance.";
+  option2.textContent = "Go to a location known for sudden rain showers.";
+  //Add typying animation to the option buttons
   option1.style.animation =
-  "typing 2s steps(" + option1.textContent.length + ")";
+    "typing 2s steps(" + option1.textContent.length + ")";
   option2.style.animation =
-  "typing 2s steps(" + option2.textContent.length + ")";
+    "typing 2s steps(" + option2.textContent.length + ")";
 
   //Display the current lives
   getlives(heartNum);
 
-  //When option1 is clicked, call ocLose function 
+  //When option1 is clicked, call ocLose function
   option1.addEventListener("click", ocLose);
-  //When option2 is clicked, call startRain function 
-  option2.addEventListener("click", function() {
-  startRain(userCity);
+  //When option2 is clicked, call startRain function
+  option2.addEventListener("click", function () {
+    startRain(userCity);
 
-  // Remove event listeners right after call the startRain function to prevent duplicating event listener 
-  option1.removeEventListener("click", ocLose);
-  option2.removeEventListener("click", arguments.callee);
+    // Remove event listeners right after call the startRain function to prevent duplicating event listener
+    option1.removeEventListener("click", ocLose);
+    option2.removeEventListener("click", arguments.callee);
   });
 }
-
 //Function to handle the user's loss in the overcast scenario
-function ocLose(event)  {
+function ocLose(event) {
   event.preventDefault();
   //empty the intro greeting
   intro.innerHTML = "";
   //empty the lives
   heartNum = 0;
-  //lose 5 points 
-  userScore -= 5;
+  //lose 20 points
+  userScore -= 20;
   //display the lives
   getlives(heartNum);
   //remove the previous animation
   option1.style.animation = "";
   option2.style.animation = "";
-  //remove the previous event 
+  //remove the previous event
   option1.removeEventListener("click", ocLose);
 
   nodeStory.textContent =
-  "As you linger in the overcast atmosphere, a sudden and unforeseen weather disaster strikes. The calmness of the clouds quickly transforms into chaos. Violent winds whip through the area, and torrential rain begins to pour.";
+    "As you linger in the overcast atmosphere, a sudden and unforeseen weather disaster strikes. The calmness of the clouds quickly transforms into chaos. Violent winds whip through the area, and torrential rain begins to pour.";
 
   nodeStatus.textContent =
-  "The sudden weather disaster proves too much to handle. Overwhelmed by the forces of nature, your journey comes to an abrupt and unfortunate end. Game Over.";
+    "The sudden weather disaster proves too much to handle. Overwhelmed by the forces of nature, your journey comes to an abrupt and unfortunate end. Game Over.";
   option1.textContent = "";
   option2.textContent = "View the Scores";
 
-  //add style to the options 
+  //add style to the options
   setTimeout(function () {
     //clear out the option1
-    option1.style =
-      "display: none";
+    option1.style = "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
   //when option2 is clicked, call viewScore
   option2.addEventListener("click", viewScore);
 }
-
-//Function to start the Rainy scenario 
+//Function to start the Rainy scenario
 function startRain(userCity) {
   getlives(heartNum);
   option1.style.animation = "";
   option2.style.animation = "";
-  //updating the game node 
+  //updating the game node
   nodeStory.textContent =
     " You stand at a rain-soaked intersection in " +
     userCity +
@@ -170,7 +175,7 @@ function startRain(userCity) {
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
-  
+
   option1.addEventListener("click", rainynextQuestion1A);
   option2.addEventListener("click", rainynextQuestionWrong);
 }
@@ -180,11 +185,11 @@ function rainynextQuestionWrong(event) {
   intro.innerHTML = "";
   heartNum -= 1;
   getlives(heartNum);
-  userScore += 5;
+  userScore += 10;
   option1.removeEventListener("click", rainynextQuestion1A);
-  option1.removeEventListener("click",rainynextQuestion2A);
+  option1.removeEventListener("click", rainynextQuestion2A);
   option2.removeEventListener("click", rainynextQuestionWrong);
-  
+
   option1.style.animation = "";
   option2.style.animation = "";
 
@@ -227,7 +232,7 @@ function rainynextQuestionWrong2A(event) {
     "As you enter, you're surprised to see an old friend behind the counter." +
     "They work as a barista and notice you immediately. \n He is also very surprised that he spills some hot coffee on you";
   nodeStatus.textContent =
-    "\"I am so sorry " +
+    '"I am so sorry ' +
     user +
     "! Your old friend feels so bad, insists on making you a cup of coffee. It's on the house!";
   option1.textContent = "Gratefully accept the free cup of coffee.";
@@ -339,7 +344,7 @@ function rainynextQuestion2A(event) {
   option2.addEventListener("click", rainynextQuestion3B);
 }
 //Update the node
-function rainynextQuestion3A(event)  {
+function rainynextQuestion3A(event) {
   event.preventDefault();
   userScore += 10;
   option1.style.animation = "";
@@ -347,14 +352,13 @@ function rainynextQuestion3A(event)  {
   option1.removeEventListener("click", rainynextQuestion3A);
   option2.removeEventListener("click", rainynextQuestion3B);
 
-  nodeStory.textContent = 
-  "The mysterious figure was testing your bravery all along! Impressed by your courage, the figure's hostile demeanor softens. They reach into the folds of their cloak and present you with a magnificent, magical sword as a reward.";
+  nodeStory.textContent =
+    "The mysterious figure was testing your bravery all along! Impressed by your courage, the figure's hostile demeanor softens. They reach into the folds of their cloak and present you with a magnificent, magical sword as a reward.";
 
-  nodeStatus.textContent = 
-  "As you continue your journey, a sudden roar echoes through the alley."
-  + "\nAs you navigate through the alley, you stands a majestic dragon. "
-  + "\nSuddenly, you hear the distant sounds of chaos as the dragon begins its assault on the city. The ground shakes beneath you, and you sense the immense power emanating from the creature.";
-
+  nodeStatus.textContent =
+    "As you continue your journey, a sudden roar echoes through the alley." +
+    "\nAs you navigate through the alley, you stands a majestic dragon. " +
+    "\nSuddenly, you hear the distant sounds of chaos as the dragon begins its assault on the city. The ground shakes beneath you, and you sense the immense power emanating from the creature.";
 
   option1.textContent = "Attempt to communicate with the dragon.";
 
@@ -367,9 +371,8 @@ function rainynextQuestion3A(event)  {
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click",rainylose);
-  option2.addEventListener("click",rainynextQuestion4A);
-
+  option1.addEventListener("click", rainylose);
+  option2.addEventListener("click", rainynextQuestion4A);
 }
 //Update the node
 function rainynextQuestion3B(event) {
@@ -380,14 +383,13 @@ function rainynextQuestion3B(event) {
   option1.removeEventListener("click", rainynextQuestion3A);
   option2.removeEventListener("click", rainynextQuestion3B);
 
-  nodeStory.textContent = 
-  "That was close! Breathing a sigh of relief, you successfully evade the mysterious figure's immediate threat."
+  nodeStory.textContent =
+    "That was close! Breathing a sigh of relief, you successfully evade the mysterious figure's immediate threat.";
 
-  nodeStatus.textContent = 
-  "As you continue your journey, a sudden roar echoes through the alley.";
-+ "\nAs you navigate through the alley, you stands a majestic dragon. ";
-+"\nSuddenly, you hear the distant sounds of chaos as the dragon begins its assault on the city. The ground shakes beneath you, and you sense the immense power emanating from the creature.";
-
+  nodeStatus.textContent =
+    "As you continue your journey, a sudden roar echoes through the alley.";
+  +"\nAs you navigate through the alley, you stands a majestic dragon. ";
+  +"\nSuddenly, you hear the distant sounds of chaos as the dragon begins its assault on the city. The ground shakes beneath you, and you sense the immense power emanating from the creature.";
 
   option1.textContent = "Attempt to communicate with the dragon.";
 
@@ -399,8 +401,8 @@ function rainynextQuestion3B(event) {
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
-  option1.addEventListener("click",rainylose);
-  option2.addEventListener("click",rainylose);
+  option1.addEventListener("click", rainylose);
+  option2.addEventListener("click", rainylose);
 }
 //Update the node
 function rainynextQuestion4A(event) {
@@ -411,15 +413,16 @@ function rainynextQuestion4A(event) {
   option1.removeEventListener("click", rainylose);
   option2.removeEventListener("click", rainynextQuestion4A);
 
-  nodeStory.textContent = 
-  "With unwavering determination, you have chosen to face the mighty dragon that looms before you. The air crackles with tension as you feel a surge of magical energy within, ready to be unleashed in the impending battle."
+  nodeStory.textContent =
+    "With unwavering determination, you have chosen to face the mighty dragon that looms before you. The air crackles with tension as you feel a surge of magical energy within, ready to be unleashed in the impending battle.";
 
-  nodeStatus.textContent = 
-  "The dragon fixes its gaze upon you, and a low growl reverberates through the chamber. You sense a powerful presence emanating from the creature."
+  nodeStatus.textContent =
+    "The dragon fixes its gaze upon you, and a low growl reverberates through the chamber. You sense a powerful presence emanating from the creature.";
 
-  option1.textContent = "Confront the dragon with your Aetherial Harmony magic."
+  option1.textContent =
+    "Confront the dragon with your Aetherial Harmony magic.";
 
-  option2.textContent = "Unleash the fury of fire magic against the dragon."
+  option2.textContent = "Unleash the fury of fire magic against the dragon.";
 
   setTimeout(function () {
     option1.style.animation =
@@ -428,19 +431,17 @@ function rainynextQuestion4A(event) {
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  option1.addEventListener("click",success);
-  option2.addEventListener("click",rainylose);
-
+  option1.addEventListener("click", success);
+  option2.addEventListener("click", rainylose);
 }
-//Function to handle the user's success 
-function success(event)  {
+//Function to handle the user's success
+function success(event) {
   event.preventDefault();
-  userScore += 20;
+  userScore = 100;
   //redirect the user to game_end html with their information as parameters
-  var successUrl = ('./game_end.html?q=' + user + "&score=" + userScore);
+  var successUrl = "./game_end.html?q=" + user + "&score=" + userScore;
   location.assign(successUrl);
 }
-
 //Functino to handle the user's loss in the rainy scenario
 function rainylose(event) {
   event.preventDefault();
@@ -454,9 +455,14 @@ function rainylose(event) {
   //there are two cases option2 calls rainylose and success from the previous branch
   option1.removeEventListener("click", rainylose);
   option2.removeEventListener("click", rainylose);
-  option2.removeEventListener("click",success);
-  nodeStory.textContent = "As you take a step forward, the dragon inhales deeply, and with a powerful exhale, it unleashes a torrent of fire from its mouth. The searing flames engulf you and everything around you."
-  nodeStatus.textContent = "Your journey comes to a tragic end, " + user + " You failed to save "+ userCity;
+  option2.removeEventListener("click", success);
+  nodeStory.textContent =
+    "As you take a step forward, the dragon inhales deeply, and with a powerful exhale, it unleashes a torrent of fire from its mouth. The searing flames engulf you and everything around you.";
+  nodeStatus.textContent =
+    "Your journey comes to a tragic end, " +
+    user +
+    " You failed to save " +
+    userCity;
 
   option1.textContent = "";
   option2.textContent = "View the Scores";
@@ -468,8 +474,6 @@ function rainylose(event) {
   }, 10);
 
   option2.addEventListener("click", viewScore);
-
-
 }
 //Update the game node
 function rainynextQuestion2BFianl(event) {
@@ -492,8 +496,7 @@ function rainynextQuestion2BFianl(event) {
   option2.textContent = "View the Scores";
 
   setTimeout(function () {
-    option1.style =
-      "display: none";
+    option1.style = "display: none";
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
@@ -506,39 +509,25 @@ function viewScore() {
   location.assign(scoreUrl);
 }
 
-/*
-function startSunny() {
-  nodeStory.textContent =
-    "Your path diverges into two roads. One road is covered with a tree canopy, while the other is open and exposed to the elements.";
-  option1.textContent = "Walk along the covered road";
-  option2.textContent = "Brave the exposed road";
-
-  option1.style.animation =
-    "typing 2s steps(" + option1.textContent.length + ")";
-  option2.style.animation =
-    "typing 2s steps(" + option2.textContent.length + ")";
-
+//Function to start sunny condition scenario
+function startSunny(userCity) {
   getlives(heartNum);
-
-  option1.addEventListener("click", sunnynextQuestionWrong);
-  option2.addEventListener("click", sunnynextQuestionCorrect);
-}
-
-
-function sunnynextQuestionWrong(event) {
-  event.preventDefault();
-  intro.innerHTML = "";
-  heartNum -= 1;
-  getlives(heartNum);
-
   option1.style.animation = "";
   option2.style.animation = "";
-
+  //updating the game node
   nodeStory.textContent =
-    "Oh No! You find yourself in the Enchanted Forest, a place of magic and mystery. While exploring, a massive dragon appears. Its scales glow with an eerie darkness, and it speaks directly to you.\n" +
-    '"Adventurer, you\'ve entered my domain. Brace yourself!"';
-  option1.textContent = "Stand your ground and prepare to fight the dragon!";
-  option2.textContent = "Try to calm the dragon down with soothing words.";
+    "The sun bathes the city in warm light. \n The sky is clear and you are in the midst of a bustling urban environment in " +
+    userCity;
+
+  nodeStatus.textContent =
+    " While you're enjoying the sunlight, A mysterious message appears on your phone, \"" +
+    userCity +
+    " conceals secrets that only the adventurer can uncover\n. Choose your path widely, and let city's whispers guide you, " +
+    user;
+
+  option1.textContent = "Decline the journey";
+
+  option2.textContent = "Accept the journey";
 
   setTimeout(function () {
     option1.style.animation =
@@ -546,23 +535,67 @@ function sunnynextQuestionWrong(event) {
     option2.style.animation =
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
-
-  option1.removeEventListener("click", sunnynextQuestionWrong);
-  option2.addEventListener("click", sunnynextQuestionWrong2);
+  // When option1 is clicked, call sunnyLose function
+  option1.addEventListener("click", function () {
+    sunnyLose(userCity);
+  });
+  option2.addEventListener("click", acceptJourney);
 }
-function sunnynextQuestionCorrect(event) {
-  event.preventDefault();
+//Update the game node
+function sunnyLose(userCity) {
+  //empt the intro
   intro.innerHTML = "";
+  //empty the lives
+  heartNum = 0;
+  //lose 20 points
+  userScore -= 20;
+  //display the lives
+  getlives(heartNum);
+  option1.removeEventListener("click", function () {
+    sunnyLose(userCity);
+  });
+  option2.removeEventListener("click", acceptJourney);
+  //remove the previous animation
+  option1.style.animation = "";
+  option2.style.animation = "";
+  nodeStory.textContent = 
+  " You decide to decline the journey. As you turn away from the mysterious message, you feel a sense of relief, but also a hint of regret. What adventures might you have missed?"
 
+  nodeStatus.textContent = "Game Over";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function viewScoreHandler() {
+  viewScore();
+}
+
+function acceptJourney() {
+  intro.innerHTML = "";
+  heartNum -= 1;
+  getlives(heartNum);
+  userScore += 10;
+  option1.removeEventListener("click", function () {
+    sunnyLose(userCity);
+  });
+  option2.removeEventListener("click", acceptJourney);
   option1.style.animation = "";
   option2.style.animation = "";
 
   nodeStory.textContent =
-    "Oh No! You find yourself in the Enchanted Forest, a place of magic and mystery. While exploring, a massive dragon appears. Its scales glow with an eerie darkness, and it speaks directly to you.\n" +
-    '"Adventurer, you\'ve entered my domain. Brace yourself!"';
-  option1.textContent = "Stand your ground and prepare to fight the dragon!";
-  option2.textContent = "Try to calm the dragon down with soothing words.";
-
+    'a mysterious message appears on your scrren.\n It reads, " A hidden Oasis awaits the daring adventurer. Seek it out and take your treasure. ';
+  nodeStatus.textContent = "Your curiosity is piqued. What will you do?";
+  option1.textContent = " Ask the locals about the hidden oasis.";
+  option2.textContent = "Visit the library to find information.";
   setTimeout(function () {
     option1.style.animation =
       "typing 2s steps(" + option1.textContent.length + ")";
@@ -570,13 +603,656 @@ function sunnynextQuestionCorrect(event) {
       "typing 2s steps(" + option2.textContent.length + ")";
   }, 10);
 
-  //option1.removeEventListener("click", sunnynextQuestionCorrect);
-  //option2.addEventListener("click", sunnynextQuestionWrong2);
+  option1.addEventListener("click", askLocals);
+  option2.addEventListener("click", gotoLibrary);
 }
 
-function sunnynextQuestionWrong2(event) {
-  event.preventDefault();
+function askLocals() {
+  heartNum = 1;
+  getlives(heartNum);
+  userScore += 10;
+  option2.style = "";
+  var userinfo = JSON.parse(localStorage.getItem(user));
+  var userCity = userinfo.city;
+  option1.removeEventListener("click", askLocals);
+  option2.removeEventListener("click", gotoLibrary);
+  option2.removeEventListener("click", viewScoreHandler);
+
+  nodeStory.textContent =
+    "You decide to ask the locals about the hidden oasis.\n They share tales of a mystical place rumored to bring good fortune and enlightenment.";
+  nodeStatus.textContent =
+    "As you express your interest, a friendly local smiles and hands you a map, that appears to be torn and somewhat hard to see saying, 'This map will guide you to the hidden oasis.' ";
+  option1.textContent = "Accept the Map ";
+  option2.textContent = "Decline and explore other areas in " + userCity + ".";
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", trickMap);
+  option2.addEventListener("click", lostForest);
+}
+
+function trickMap() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", trickMap);
+  option2.removeEventListener("click", lostForest);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+    "Excited about the hidden oasis, you decide to follow the map provided by the locals. \n However, as you venture deeper, you realize something is amiss.";
+  nodeStatus.textContent =
+    "The surroundings become increasingly dense, and the once-friendly path transforms into a treacherous forest filled with dangerous creatures.\n Then you quickly realize that the map was a trick";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", function(){
+    viewScore();
+    option2.removeEventListener("click", viewScore)});
+  
+}
+
+function lostForest() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", trickMap);
+  option2.removeEventListener("click", lostForest);
+  option2.removeEventListener("click", viewScoreHandler);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+    "You decide to decline the map and explore the mysterious oasis on your own.\n However, as you venture deeper into the unfamiliar forest, the surroundings become increasingly dense, and you quickly find yourself lost.";
+  nodeStatus.textContent =
+    "The once-friendly path transforms into a treacherous forest.\n You can't find a way out and now you are stuck in the forest forever.";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScore);
+}
+
+function gotoLibrary() {
+  getlives(heartNum);
+  userScore += 10;
+  var userinfo = JSON.parse(localStorage.getItem(user));
+  var userCity = userinfo.city;
+  option1.removeEventListener("click", askLocals);
+  option1.removeEventListener("click", viewScore);
+  option2.removeEventListener("click", gotoLibrary);
+  option1.style = "";
+  option2.style = "";
+
+  nodeStory.textContent =
+  "You decide to visit the local library in " + userCity + " in search of valuable information.";
+  nodeStatus.textContent ="As you enter the library, you see two promising sections: the History Aisle and the Geology Aisle. Each aisle holds its own mysteries.";
+  option1.textContent = "Find documentation in the History Aisle.";
+  option2.textContent = "Find documentation in the Geology Aisle.";
+
+  setTimeout(function () {
+    option1.style = "";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click",libraryMap);
+  option2.addEventListener("click",libraryMap);
+}
+
+function libraryMap() {
+  userScore += 10;
+  option2.style = "";
+  option1.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", libraryMap);
+  option2.removeEventListener("click", libraryMap);
+  
+
+  nodeStory.textContent =
+  "In the aisle, you find a wrinkled map tucked between dusty old books. It seems to depict the location of the hidden oasis, marked with an 'X."
+  nodeStatus.textContent =
+  "Now you face a choice: Keep the map and use it to venture towards the oasis, or leave it behind and search for another source of information."
+  option1.textContent = 
+  "Keep the wrinkled map, and continue your journey with it"
+  option2.textContent = 
+  "Leave the map and find another source."
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option1.addEventListener("click",rightLeft);
+  option2.addEventListener("click",stuck);
+}
+
+function stuck()  {
+  heartNum = 0
+  getlives(heartNum);
+  userScore -=10;
+  option2.style = "";
+  
+  option1.removeEventListener("click", rightLeft);
+  option2.removeEventListener("click", stuck);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "Opting to leave the wrinkled map behind, you scour the library for other resources. Hours pass as you become engrossed in your search, unaware that the library is closing."
+  nodeStatus.textContent =
+  "As you look up from the dusty tomes, you realize that the library is now empty, and the lights are dimmed.\n you are now locked inside the library. "
+  option1.textContent = ""
+  option2.textContent = "View the Scores"
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click",viewScoreHandler);
+}
+
+function rightLeft()  {
+  userScore += 10;
+  option2.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", rightLeft);
+  option2.removeEventListener("click", stuck);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "You decide to venture into the unknown. As you unfold the map, it reveals two paths: one leading to the right and the other to the left."
+  nodeStatus.textContent =
+  "You must choose your direction wisely. Which path will you take?"
+  option1.textContent = 
+  "Right"
+  option2.textContent = 
+  "Left"
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", goRight);
+  option2.addEventListener("click", goLeft);
+}
+
+function goLeft() {
+  heartNum = 0
+  getlives(heartNum);
+  userScore += 5;
+  option2.style = "";
+  
+  option1.removeEventListener("click", goRight);
+  option2.removeEventListener("click", goLeft);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "Intrigued by a strange light, you follow it deeper into the woods."
+  nodeStatus.textContent =
+  "However, the light leads you to a magical barrier, and you are unable to proceed. It seems you've reached the end of your journey in the enchanted forest."
+  option1.textContent = ""
+  option2.textContent = "View the Scores"
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click",viewScoreHandler);
+}
+
+function goRight()  {
+  userScore += 10;
+  option2.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", goRight);
+  option2.removeEventListener("click", goLeft);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "You chose the right path and venture deeper into the unknown terrain."
+  nodeStatus.textContent =
+  "The surroundings become increasingly challenging, with rocky landscapes and hidden pitfalls."
+  option1.textContent = 
+  "Climb the rocky terrain.";
+  option2.textContent = 
+  "Navigate through a dark cave";
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", climb);
+  option2.addEventListener("click", darkCave);
+}
+function darkCave() {
+  userScore += 15;
+  option2.style = "";
+  heartNum = 1;
+  getlives(heartNum);
+  
+  option1.removeEventListener("click", climb);
+  option2.removeEventListener("click", darkCave);
+  option2.removeEventListener("click", viewScoreHandler);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "Intrigued by the mystery, you choose to enter the dark cave. The air becomes cooler as you venture deeper, and the only source of light is the faint glow at the end of the tunnel."
+  nodeStatus.textContent =
+  "After a suspenseful journey through the cave, you emerge into a breathtaking oasis surrounded by lush greenery, sparkling water, and vibrant flowers. It seems you've discovered the hidden oasis that everyone was talking about."
+  option1.textContent = 
+  "share the location of the oasis with other people"
+  option2.textContent = 
+  "enjoy the oasis all by yourself"
+
+  setTimeout(function () {
+    option1.style = " ";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", success);
+  option2.addEventListener("click", greedy)
+}
+function greedy() {
+  heartNum = 0;
+  userScore += 10;
+  getlives(heartNum);
+  
+
+  option1.removeEventListener("click", success);
+  option2.removeEventListener("click", greedy);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+    "Overwhelmed by the beauty and tranquility of the oasis, greed takes over. You decide to keep the oasis a secret, wanting to savor its wonders all to yourself.";
+
+  nodeStatus.textContent =
+    "Days pass, and you enjoy the oasis in solitude. However, your selfishness comes at a cost. The magic of the oasis begins to fade, and the once vibrant surroundings wither away.";
+
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click", viewScoreHandler);
+}
+function climb() {
+  userScore += 10;
+  heartNum = 0
+  getlives(heartNum);
+  option2.style = "";
+  
+  option1.removeEventListener("click", climb);
+  option2.removeEventListener("click", darkCave);
+  option2.style = "";
+  option1.style = "";
+
+  nodeStory.textContent =
+  "You decide to climb the rocky mountain, hoping to gain a better vantage point."
+  nodeStatus.textContent =
+  "As you ascend higher, you unexpectedly encounter a hidden trap laid by the mountain's mysterious inhabitants, and you fall...";
+
+  option1.textContent = ""
+  option2.textContent = "View the Scores"
+
+  setTimeout(function () {
+    option1.style = "display: none";
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+
+  option2.addEventListener("click",viewScoreHandler);
+}
+function startSnowy(userCity) {
+  heartNum = 3;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  //updating the game node
+  nodeStory.textContent =
+    "You stand at the summit of a snowy covered mountain, surrounded by pristine white landscapes and overlooking " + userCity
+      + ".";
+  nodeStatus.textContent =
+  "Two mysterious figures offer guidance. An old sage with ancient wisdom or a talking Arctic fox with magical insights.";
+   
+  option1.textContent = 
+  "Follow the Old Sage"
+  option2.textContent = 
+  "Follow the Arctic Fox"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", followSage);
+  option2.addEventListener("click", followFox);
+}
+function followSage() {
   heartNum -= 1;
   getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click",followSage);
+  option2.removeEventListener("click", followFox);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Old Sage reveals that the mountain whispers tales of ice and ancient magic.";
+  
+  nodeStatus.textContent =
+   "Together, you and the Old Sage venture into the snowy valley and encounter a mysterious cave entrance that emanates strange magical energy."
+  option1.textContent = 
+  "Enter the mysterious cave and learn more about this strange magical energy"
+  option2.textContent = 
+  "Continue through the valley spooked by the strange aura the cave gives off"
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", enterValley);
+  option2.addEventListener("click", continueValley);
 }
-*/
+function continueValley() {
+  heartNum -= 1;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click", enterValley);
+  option2.removeEventListener("click", continueValley);
+  userScore += 5;
+  //updating the game node
+  nodeStory.textContent =
+  "You're caught in a snowstorm without any shelter! If you don't get warm in time you'll die in the snowy tundra.";
+  nodeStatus.textContent =
+  "You spot a dead TaunTaun and remember what Luke Skywalker did"
+  option1.textContent = 
+  "uses a lightsaber to slice open the belly of a deceased Tauntaun"
+  option2.textContent = 
+  "I've never seen Star Wars"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", starWars);
+  option2.addEventListener("click", noStarWars);
+}
+function starWars() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", starWars);
+  option2.removeEventListener("click", noStarWars);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "Congratulations! You're a nerd! But you've managed to survive the snowstorm thanks to the help of George Lucas!"
+  nodeStatus.textContent =
+  "The Old Sage, however, seems shocked by your unconventional survival tactic. He informs you that he cannot continue the journey with you"
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function noStarWars() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", starWars);
+  option2.removeEventListener("click", noStarWars);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "Your lack of pop culture references gets you killed in the snowy tundra."
+  nodeStatus.textContent =
+  "You should've made a wiser choice."
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function followFox()  {
+  heartNum -= 1;
+  getlives(heartNum);
+  option1.style.animation = "";
+  option2.style.animation = "";
+  intro.innerHTML = "";
+  option1.removeEventListener("click",followSage);
+  option2.removeEventListener("click", followFox);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Arctic Fox guides you deeper into the cave. The air is filled with a faint glow, and the echoing sounds of unseen creatures reverberate through the icy chambers"
+  nodeStatus.textContent =
+  "He informs you that he's a mountain spirit who guides travelers to safety down the mountain and gives you a meal to eat.";
+  option1.textContent = 
+  "Ask the Arctic Fox about this strange magical aura in the air."
+  option2.textContent = 
+  "Steal the food in the cave and leave"
+
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", askFox);
+  option2.addEventListener("click", stealFood);
+}
+function askFox() {
+  heartNum = 0;
+  getlives(heartNum);
+  userScore += 5;
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood);
+  option2.removeEventListener("click", stealFood2);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "The Arctic Fox has deceived you! The Frost Giant emerges from the cave and traps you in his lair all thanks to his shape-shifting minions. You've been captured with no hope of escape "
+  nodeStatus.textContent =
+  "Now, you learn your lesson, Never believe a cunning Arctic Fox."
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function stealFood()  {
+  userScore += 5;
+  heartNum = 0;
+  getlives(heartNum);
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "As you attempt to steal the food, the Arctic Fox, sensing your greed, transforms into a fearsome creature. The cave shudders, and you find yourself entangled in the Fox's magical powers.";
+
+  nodeStatus.textContent =
+  "The last thing you hear is a warning about the consequences of dishonesty as the Arctic Fox's magic seals your fate.";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+function enterValley()  {
+  getlives(heartNum)
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", enterValley);
+  option2.removeEventListener("click", continueValley);
+  userScore += 10;
+  //updating the game node
+  nodeStory.textContent =
+  "The Old Sage transforms into an Arctic Fox and guides you deeper into the cave. The air is filled with a faint glow, and the echoing sounds of unseen creatures reverberate through the icy chambers";
+  nodeStatus.textContent =
+  "He informs you that he's a mountain spirit who guides travelers to safety down the mountain and gives you a meal to eat.";
+  option1.textContent = 
+  "Ask the him about this strange magical aura in the air."
+  option2.textContent = 
+  "Steal the food in the cave and leave. because you just saw an old man turn into a fox";
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", askFox);
+  option2.addEventListener("click", stealFood2);
+}
+function stealFood2() {
+  getlives(heartNum)
+  option1.style.animation = "";
+  option2.style.animation = "";
+  option1.removeEventListener("click", askFox);
+  option2.removeEventListener("click", stealFood2);
+  userScore += 20;
+  //updating the game node
+  nodeStory.textContent =
+  "Thankfully you had enough food to make it down the mountain. You find an inn for the night and rest from an odd day in the snow."
+  nodeStatus.textContent =
+  "As you approach the inn, you notice a warm glow and the inviting scent of a hearty meal."
+  option1.textContent = 
+  "Do not enter and continue your journey"
+  option2.textContent = 
+  "Enter the inn and warm up."
+  setTimeout(function () {
+    option1.style.animation =
+      "typing 2s steps(" + option1.textContent.length + ")";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  option1.addEventListener("click", ignoreInn);
+  option2.addEventListener("click", success);
+}
+function ignoreInn()  {
+  userScore += 5;
+  option1.removeEventListener("click", ignoreInn);
+  option2.removeEventListener("click", viewScoreHandler);
+  option1.style.animation = "";
+  option2.style.animation = "";
+
+  nodeStory.textContent =
+  "You decide to brave the cold and continue your journey without seeking shelter. As the night progresses, the temperature drops sharply, and you find yourself shivering in the biting cold.";
+  nodeStatus.textContent =
+  "Without the warmth of the inn, the harsh weather takes its toll. Your energy wanes, and you struggle to endure the freezing conditions.";
+  option1.textContent = "";
+  option2.textContent = "View the Scores";
+
+  //add style to the options
+  setTimeout(function () {
+    //clear out the option1
+    option1.style = "display: none";
+    option2.style.animation =
+      "typing 2s steps(" + option2.textContent.length + ")";
+  }, 10);
+  //when option2 is clicked, call viewScore
+  option2.addEventListener("click", viewScoreHandler);
+}
+
