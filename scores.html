@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets\css\style.css" />
     <title>Scores</title>
-</head>
-<body>
-    <h1>Scores</h1>
-    <button id="start-btn" type="button" class="nes-btn">
-        Go Back
-      </button>
+  </head>
+  <body>
+    <h1> High Scores</h1>
+    <h1 id="user-score"></h1>
+    <button id="start-btn" type="button" class="nes-btn">Go Back</button>
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Weather</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Inserting data dynamically using JavaScript -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Weather</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Inserting data dynamically using JavaScript -->
+      </tbody>
     </table>
 
     <script>
-        // Assuming 'details' is your localStorage variable
-        var searchUser = document.location.search.split("q=");
-        var userSplit = searchUser[1].split("&");
-        var user = userSplit[0];
-        var goBackBtn = document.getElementById("start-btn");
-        console.log(userSplit);
-        console.log(user);
-        console.log(searchUser);
-        
-        var searchScore = document.location.search.split("score=");
-        var scoreNew = searchScore[1];
-        console.log(searchScore);
-        console.log(scoreNew);
-        
+      //Get the user name from the parameter   
+      var searchUser = document.location.search.split("q=");
+      var userSplit = searchUser[1].split("&");
+      var user = userSplit[0];
+      var goBackBtn = document.getElementById("start-btn");
+      //Get the score from the parameter
+      var searchScore = document.location.search.split("score=");
+      var scoreNew = searchScore[1];
+      //Get the userInfos from the localStorage and stored it in a details variable 
+      var details = JSON.parse(localStorage.getItem("userInfos")) || [];
+      //Get the individual information from the localStorage and stored it is a newScore variable 
+      var newScore = JSON.parse(localStorage.getItem(user));
+      //update the score
+      newScore.score = scoreNew;
+      //Display the current user's score to the screen
+      var scoreContainer = document.getElementById("user-score");
+      scoreContainer.textContent = "Your Score: " + scoreNew;
 
-       var details = JSON.parse(localStorage.getItem("userInfos")) || [];
-       var newScore = JSON.parse(localStorage.getItem(user));
-       newScore.score = scoreNew;
-       
-        if (details.length > 0) {
-            details.pop();
-            console.log(details);
-        }
-       details.push(newScore);
-       localStorage.setItem("userInfos", JSON.stringify(details)); 
+      //remove the last item with the initial score 
+      if (details.length > 0) {
+        details.pop();
+      }
+      //add the updated individual user info to the details 
+      details.push(newScore);
+      //store the updated userinfos into the localStorage
+      localStorage.setItem("userInfos", JSON.stringify(details));
 
-        // Reference to the table body
-        var tableBody = document.querySelector('tbody');
-        
-        // Loop through details and populate the table
-        details.forEach(function(detail) {
-            var row = tableBody.insertRow();
-            var cellName = row.insertCell(0);
-            var cellCity = row.insertCell(1);
-            var cellWeather = row.insertCell(2);
-            var cellScore = row.insertCell(3);
+      // Reference to the table body
+      var tableBody = document.querySelector("tbody");
 
-            cellName.innerHTML = detail.name;
-            cellCity.innerHTML = detail.city;
-            cellWeather.innerHTML = detail.weather;
-            cellScore.innerHTML = detail.score;
-        });
-        function goBack() {
-            var startingUrl = "./index.html";
-            location.assign(startingUrl);
-        }
-        goBackBtn.addEventListener("click", goBack);
+      //Sort ou the details items by score in descending order
+      details.sort((a, b) => b.score - a.score);
+      // Loop through details and populate the table
+      details.forEach(function (detail) {
+        var row = tableBody.insertRow();
+        var cellName = row.insertCell(0);
+        var cellCity = row.insertCell(1);
+        var cellWeather = row.insertCell(2);
+        var cellScore = row.insertCell(3);
+
+        cellName.innerHTML = detail.name;
+        cellCity.innerHTML = detail.city;
+        cellWeather.innerHTML = detail.weather;
+        cellScore.innerHTML = detail.score;
+      });
+      //When the user clicks goBack button, redirect them to the index.html
+      function goBack() {
+        var startingUrl = "./index.html";
+        location.assign(startingUrl);
+      }
+      goBackBtn.addEventListener("click", goBack);
     </script>
+  </body>
+</html>

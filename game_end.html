@@ -4,13 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
     <link rel="stylesheet" href="assets\css\style.css" />
     <title>Game Result</title>
   </head>
   <body>
-    <h1>Game Result</h1>
-    <p id="display-content"></p>
-
+    <div id="game-result">
+        <h1>Game Result</h1>
+        <p id="display-content"></p>
+        <button id="score-page">Go to Scores Page</button>
+    </div>
     <script>
       //Get the user name from the parameter 
       var searchUser = document.location.search.split("q=");
@@ -18,9 +28,7 @@
       var user = userSplit[0];
       //Get the user informatino from the localStorage saved as the user name
       var last_played = JSON.parse(localStorage.getItem(user));
-      console.log(last_played.name);
-      console.log(user);
-        
+     
       var displayContent = document.getElementById("display-content");
       displayContent.textContent =
         "Congratulations , " +
@@ -28,9 +36,8 @@
         "! You've survived your adventure in " +
         last_played.city;
 
-      document.write(
-        '<button onclick="redirectToScores()">Go to Scores Page</button>'
-      );
+      var scoreBtn = document.getElementById("score-page");
+      scoreBtn.addEventListener("click", redirectToScores);
       //When the user clicks "Go to Scores Page", redirect them to scores.html with their user information as parameters
       function redirectToScores() {
         var searchUser = document.location.search.split("q=");
