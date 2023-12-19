@@ -41,12 +41,12 @@ function getintro(user) {
   if (daynight == "AM") {
     greeting.textContent = "Good Morning, " + user;
   } else if (
-    (daynight == "PM" && time < 6) ||
+    (daynight == "PM" && time <= 6) ||
     (daynight == "PM" && time === 12)
   ) {
     greeting.textContent = "Good Afternoon, " + user;
   } else if (
-    (daynight == "PM" && time > 6) ||
+    (daynight == "PM" && time >= 6) ||
     (daynight == "AM" && time === 12)
   ) {
     greeting.textContent = "Good Night, " + user;
@@ -937,6 +937,7 @@ function greedy() {
   option2.addEventListener("click", viewScoreHandler);
 }
 function climb() {
+  userScore += 10;
   heartNum = 0
   getlives(heartNum);
   option2.style = "";

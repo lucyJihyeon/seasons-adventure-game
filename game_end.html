@@ -28,9 +28,7 @@
       var user = userSplit[0];
       //Get the user informatino from the localStorage saved as the user name
       var last_played = JSON.parse(localStorage.getItem(user));
-      console.log(last_played.name);
-      console.log(user);
-        
+     
       var displayContent = document.getElementById("display-content");
       displayContent.textContent =
         "Congratulations , " +
